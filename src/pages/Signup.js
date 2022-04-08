@@ -1,15 +1,37 @@
 import React from "react";
 import { Grid, Text, Input, Button } from "../elements";
+import axios from "axios";
+// import Upload from "../shared/Upload";
 
 const Signup = (props) => {
 
   const [id, setID] = React.useState("");
+  const [user_name, setUserName] = React.useState("");
   const [pwd, setPwd] = React.useState("");
   const [pwd_check, setPwdCheck] = React.useState("")
-  const [user_name, setUserName] = React.useState("");
+  const [profile, setProfile] = React.useState("")
+  
 
   const signup = () => {
-    console.log("hello");
+    // input 값 테스트 해보기
+    console.log(id, user_name, pwd, pwd_check, profile)
+
+    
+    axios.post('https://624ff4c4e3e5d24b34192201.mockapi.io/login', // 미리 약속한 주소
+      { // 데이터
+        email: id, 
+        nickname: user_name,
+        password: pwd,
+      }, 
+      // {
+      //   headers: { 'Authorization': '내 토큰 보내주기' },
+      // }
+    ).then(function (response) {
+        console.log(response);
+      })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   return (
@@ -60,6 +82,8 @@ const Signup = (props) => {
             type="password"
           />
         </Grid>
+
+        {/* <Upload /> */}
 
         <Button text="회원가입하기" _onClick={signup}></Button>
       </Grid>
