@@ -17,21 +17,30 @@ const Main = (props) => {
   return (
     <React.Fragment>
       <Head />
-      <BodyContainer>
-        <Body />
+      <Wrapper>
+        <BodyContainer>
+          <Body />
+        </BodyContainer>
         <Footer />
-      </BodyContainer>
+      </Wrapper>
     </React.Fragment>
   );
 };
 
-const BodyContainer = styled.div`
+const Wrapper = styled.div`
   width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  position: relative;
   min-height: 100vh;
+`;
+
+const BodyContainer = styled.div`
+  max-width: 70vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 export default Main;

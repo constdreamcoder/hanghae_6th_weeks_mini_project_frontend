@@ -43,13 +43,15 @@ const Main = (props) => {
 
 const FooterContainer = styled.footer`
   width: 100vw;
-  background-color: rgb(173, 216, 255);
+  background-color: #e5e3c9;
   padding: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: relative;
   bottom: 0px;
+  height: 135px;
+  margin-top: 25px;
 `;
 
 const FooterInnerContainer = styled.div`
@@ -67,13 +69,13 @@ const FooterTitle = styled.div`
   padding: 16px;
   font-size: 1.5rem;
   font-weight: 700;
-  color: rgb(25, 73, 116);
+  color: #789395;
 `;
 
 const FooterBody = styled.div`
   display: flex;
   flex-direction: row;
-  //   justify-content: center;
+  justify-content: center;
   align-items: center;
   padding: 16px 0px;
   border-top: 1px solid rgb(126, 125, 125);
@@ -81,7 +83,6 @@ const FooterBody = styled.div`
 
 const FooterBodyLeft = styled.div`
   display: flex;
-  //   flex-direction: row;
   justify-content: center;
   align-items: start;
   margin-right: 50px;
@@ -92,7 +93,6 @@ const FooterBodyRight = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: start;
-  // z-index: 1;
 `;
 
 const FooterBodyLeftFrontend = styled.div`

@@ -3,14 +3,18 @@ import React from "react";
 // style
 import styled from "@emotion/styled";
 
+// components
+import CardList from "./CardList";
+
 const Body = (props) => {
   return (
     <React.Fragment>
       <BannerImage>
         <BannerText>
-          <BannerSpan>냉장고를 부탁해</BannerSpan>
+          <BannerSpan className="banner-image">냉장고를 부탁해</BannerSpan>
         </BannerText>
       </BannerImage>
+      <CardList />
     </React.Fragment>
   );
 };
@@ -19,8 +23,8 @@ const BannerImage = styled.div`
   width: 100vw;
   height: 20rem;
   border-radius: 0px;
-  background-image: url(https://my-speak-app.s3.ap-northeast-2.amazonaws.com/camp.jpg);
-  background-position: center center;
+  background-image: url("https://thumbs.dreamstime.com/z/retro-refrigerator-different-food-comic-cartoon-style-vector-illustration-89907376.jpg");
+  background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   margin-bottom: 25px;
@@ -31,11 +35,8 @@ const BannerText = styled.div`
   height: 100%;
   display: flex;
   flex-direction: row;
-  -webkit-box-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
   align-items: center;
-  z-index: 1;
 `;
 
 const BannerSpan = styled.span`

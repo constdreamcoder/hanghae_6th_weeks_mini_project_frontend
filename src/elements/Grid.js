@@ -11,7 +11,8 @@ const Grid = (props) => {
     children,
     center,
     position, // new
-    zIndex, // new
+    zIndex,
+    height, // new
   } = props;
 
   // children이라는 변수는 의미적으로 style과 관련이 없는 변수이기 때문에
@@ -24,7 +25,8 @@ const Grid = (props) => {
     bg: bg,
     center: center,
     position: position, //new
-    zIndex: zIndex, // new
+    zIndex: zIndex,
+    height, // new
   };
   return (
     <React.Fragment>
@@ -42,13 +44,13 @@ Grid.defaultProps = {
   bg: false,
   center: false,
   position: "", // new
-  zIndex: "",
+  zIndex: "", // new
+  height: "100%", //new
 };
 
 const GridBox = styled.div`
-  z-index: ${(props) => props.zIndex};
   width: ${(props) => props.width};
-  height: 100%;
+  height: ${(props) => props.height};
   box-sizing: border-box;
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
@@ -59,6 +61,8 @@ const GridBox = styled.div`
       : ""}
   ${(props) => (props.center ? `text-align: center` : "")};
   position: ${(props) => props.position}; // new
+  z-index: ${(props) => props.zIndex}; // new
+  overflow: hidden; // new
 `;
 
 export default Grid;
