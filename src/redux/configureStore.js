@@ -3,18 +3,18 @@ import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 
-import User from "./modules/user";
-import Post from "./modules/post";
+// import User from "./modules/user";
+// import Post from "./modules/post";
 import Image from "./modules/image";
 
 // history 객체 생성
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
-  user: User,
-  post: Post,
-  image: Image,
-  router: connectRouter(history), // 생성된 history와 router가 연결됨
+    // user: User,
+    // post: Post,
+    image: Image,
+    router: connectRouter(history), // 생성된 history와 router가 연결됨
 });
 
 // middlewares
@@ -26,17 +26,17 @@ const env = process.env.NODE_ENV;
 
 // 개발환경에서는 로거라는 걸 하나만 더 써볼게요.
 if (env === "development") {
-  const { logger } = require("redux-logger");
-  middlewares.push(logger);
+    const { logger } = require("redux-logger");
+    middlewares.push(logger);
 }
 
 // Devtools
 const composeEnhancers = //window === "object" 객체가 브라우저일 때만 V8 엔진(자바스크립트 엔진)이 돌아가도록 하는 문법
-  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-      })
-    : compose;
+    typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+              // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+          })
+        : compose;
 
 // reducer 엮기
 const enhancer = composeEnhancers(applyMiddleware(...middlewares));

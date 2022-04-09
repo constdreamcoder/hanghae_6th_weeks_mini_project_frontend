@@ -1,20 +1,30 @@
 import React from "react";
-import { Grid, Image, Text } from "../elements";
+import { Grid, Image, Text, Input, Button } from "../elements";
 
 const CommentList = (props) => {
   return (
     <React.Fragment>
-      <Grid padding="16px">
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
+      <Grid padding="30px">
+        <Grid is_flex>
+          <Button
+            width="20%"
+            margin="0px 20px 0px 0px"
+            text="요리를 추천해주세요!!"
+          ></Button>
+          <Input />
+        </Grid>
+        <Grid padding="16px">
+          <CommentItem />
+          <CommentItem />
+          <CommentItem />
+          <CommentItem />
+          <CommentItem />
+          <CommentItem />
+          <CommentItem />
+          <CommentItem />
+          <CommentItem />
+          <CommentItem />
+        </Grid>
       </Grid>
     </React.Fragment>
   );
@@ -29,11 +39,13 @@ const CommentItem = (props) => {
     <Grid is_flex>
       <Grid is_flex width="auto">
         <Image shape="circle"></Image>
-        <Text bold>{user_name}</Text>
+        <Text margin="0px 10px" bold>
+          nickname
+        </Text>
       </Grid>
       <Grid is_flex margin="0px 4px">
-        <Text margin="0px">{contents}</Text>
-        <Text margin="0px">{insert_dt}</Text>
+        <Text margin="0px 5px">라면먹고 싶당~~!!!</Text>
+        <Text margin="0px">2021-01-01 10:00:00</Text>
       </Grid>
     </Grid>
   );

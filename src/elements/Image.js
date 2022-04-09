@@ -1,12 +1,17 @@
 import styled from "styled-components";
 import React from "react";
+import { width } from "@mui/system";
 
 const Image = (props) => {
-    const { shape, src, size } = props;
+    // new : margin, display, paddingTop
+    const { shape, src, size, display, margin, paddingTop } = props;
 
     const styles = {
         src: src,
         size: size,
+        display: display, // new
+        margin: margin, // new
+        paddingTop: paddingTop, // new
     };
 
     if (shape === "circle") {
@@ -20,6 +25,10 @@ const Image = (props) => {
             </AspectOutter>
         );
     }
+
+    if (shape === "wide-image") {
+        return <></>;
+    }
     return <React.Fragment></React.Fragment>;
 };
 
@@ -27,6 +36,9 @@ Image.defaultProps = {
     shape: "circle",
     src: "https://d5nunyagcicgy.cloudfront.net/external_assets/hero_examples/hair_beach_v391182663/original.jpeg",
     size: 36,
+    display: "", // new
+    margin: "4px", // new
+    paddingTop: "75%", // new
 };
 
 const AspectOutter = styled.div`
@@ -36,12 +48,14 @@ const AspectOutter = styled.div`
 
 const AspectInner = styled.div`
     position: relative;
-    padding-top: 75%;
+    padding-top: ${(props) => props.paddingTop}; // new
     overflow: hidden;
+    height: auto;
     background-image: url("${(props) => props.src}");
-    // backgroud-size: cover;
+    //   backgroud-size: cover;
+    background-position: center; // new
+    // border-radius: 20px 20px 0px 0px; // new
     background-repeat: no-repeat;
-    background-position: center;
     background-size: contain;
 `;
 
@@ -53,8 +67,10 @@ const ImageCircle = styled.div`
 
     background-image: url("${(props) => props.src}");
     background-size: cover;
-    margin: 4px;
+    margin: ${(props) => props.margin}; // new
+    background-position: center; // new
     background-repeat: no-repeat;
+    display: ${(props) => props.display}; // new
 `;
 
 export default Image;

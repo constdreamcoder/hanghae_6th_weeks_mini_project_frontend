@@ -2,7 +2,18 @@ import React from "react";
 import styled from "styled-components";
 
 const Grid = (props) => {
-    const { is_flex, width, margin, padding, bg, children, center } = props;
+    const {
+        is_flex,
+        width,
+        margin,
+        padding,
+        bg,
+        children,
+        center,
+        position, // new
+        zIndex,
+        height, // new
+    } = props;
 
     // children이라는 변수는 의미적으로 style과 관련이 없는 변수이기 때문에
     // 의미구분을 위하여 아래 코드와 같이 style에 관련된 변수들만 모아 새로 선언해준다.
@@ -13,6 +24,9 @@ const Grid = (props) => {
         padding: padding,
         bg: bg,
         center: center,
+        position: position, //new
+        zIndex: zIndex,
+        height, // new
     };
     return (
         <React.Fragment>
@@ -29,11 +43,14 @@ Grid.defaultProps = {
     margin: false,
     bg: false,
     center: false,
+    position: "", // new
+    zIndex: "", // new
+    height: "100%", //new
 };
 
 const GridBox = styled.div`
     width: ${(props) => props.width};
-    height: 100%;
+    height: ${(props) => props.height};
     box-sizing: border-box;
     ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
     ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
@@ -43,6 +60,9 @@ const GridBox = styled.div`
             ? `display: flex; align-items: center; justify-content: space-between`
             : ""}
   ${(props) => (props.center ? `text-align: center` : "")};
+    position: ${(props) => props.position}; // new
+    z-index: ${(props) => props.zIndex}; // new
+    overflow: hidden; // new
 `;
 
 export default Grid;

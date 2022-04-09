@@ -7,8 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 const PostWrite = (props) => {
     const dispatch = useDispatch();
     const preview = useSelector((state) => state.image.preview);
-
     console.log(preview);
+
     //===============================================contents관련
     // 작성하기, 수정하기 클릭 시 전달할 input의 내용
     const [contents, setContents] = React.useState({
