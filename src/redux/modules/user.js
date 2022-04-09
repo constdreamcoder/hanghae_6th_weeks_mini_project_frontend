@@ -1,5 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import axios from "axios";
 
 // actions
 const LOG_IN = "LOG_IN";
@@ -22,24 +23,69 @@ const user_initial = {
   user_name: "mean0",
 };
 
-// middleware actions
-const loginFB = (id, pwd) => {
+const signupFB = (email, password, nickname) => {
   return function (dispatch, getState, { history }) {
-    // 로그인 후 인증상태 지속
-    console.log('loginFB')
+    console.log('signupFB')
   };
 };
 
-const signupFB = (id, pwd, user_name) => {
+// middleware actions
+const loginFB = (email, password) => {
   return function (dispatch, getState, { history }) {
-    console.log('signupFB')
+    // 로그인 후 인증상태 지속
+    console.log('--Run loginFB');
+    // console.log(email, password);
+    axios.post('https://624ff4c4e3e5d24b34192201.mockapi.io/login', // 미리 약속한 주소
+      { // 데이터
+        email: email, 
+        password: password,
+      }
+    ).then(function (response) {
+        console.log('--login api call Success');
+        console.log(response);
+        localStorage.setItem("token", response.token);
+        history.push("/")
+      })
+    .catch(function (error) {
+      console.log("아이디 혹은 비밀번호가 맞지 않습니다." + error);
+      alert("아이디 혹은 비밀번호가 맞지 않습니다.")
+    });
   };
 };
 
 // 로그인 체크를 해서 새로고침하면 데이터가 날아가버리는 리덕스에 다시 데이터를 집어 넣는다.
 const loginCheckFB = () => {
   return function (dispatch, getState, { history }) {
-    console.log('loginCheckFB')
+    console.log('--Run loginCheckFB');
+    // /islogin 호출
+    axios.post('https://624ff4c4e3e5d24b34192201.mockapi.io/islogin', // 미리 약속한 주소
+    {
+      // token: localStorage.getItem("token"),
+    }, 
+    {
+      // localStorage에 있는 토큰을 get함
+      headers: { 'Authorization': localStorage.getItem("token") },
+    }
+    ).then(function (response) {
+      console.log('--islogin api call Success');
+      console.log(response);
+      // 응답이 잘 들어왔으면 store에 있는 user라는 state를 dispatch 해주기
+      dispatch(
+        setUser({
+          id: response.userInfo.id,
+          email: response.userInfo.email,
+          nickname: response.userInfo.nickname,
+          profile: response.userInfo.profile,
+        })
+      )
+      console.log(getState().user.email)
+    })
+    .catch(function (error) {
+      console.log('--islogin api call Fail');
+      console.log(error);
+      // 올바른 토큰이 아닐 경우 로그아웃 처리
+      dispatch(logOut());
+    });
   };
 };
 
