@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 
-import { storage } from "../../shared/firebase";
+// import { storage } from "../../shared/firebase";
 
 const UPLOADING = "UPLOADING";
 const UPLOAD_IMAGE = "UPLOAD_IMAGE";
@@ -24,19 +24,19 @@ const uploadImageFB = (image) => {
 
     dispatch(uploading(true));
     // 이미지 파이어스토리지에 저장
-    const _upload = storage.ref(`images/${image.name}`).put(image);
+    // const _upload = storage.ref(`images/${image.name}`).put(image);
 
-    _upload.then((snapshot) => {
-      console.log(snapshot);
-      // 업로드가 돤료되었다는 의미에서 uploading을 false로 전환
-      //   dispatch(uploading(false));
+    // _upload.then((snapshot) => {
+    //   console.log(snapshot);
+    //   // 업로드가 돤료되었다는 의미에서 uploading을 false로 전환
+    //   //   dispatch(uploading(false));
 
-      // 업로드된 이미지 링크 받아오기
-      snapshot.ref.getDownloadURL().then((url) => {
-        dispatch(uploadImage(url));
-        console.log(url); // 업로드된 url로 불러오기
-      });
-    });
+    //   // 업로드된 이미지 링크 받아오기
+    //   snapshot.ref.getDownloadURL().then((url) => {
+    //     dispatch(uploadImage(url));
+    //     console.log(url); // 업로드된 url로 불러오기
+    //   });
+    // });
   };
 };
 

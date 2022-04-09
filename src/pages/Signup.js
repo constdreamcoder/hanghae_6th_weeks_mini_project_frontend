@@ -3,7 +3,13 @@ import { Grid, Text, Input, Button } from "../elements";
 import axios from "axios";
 import PFUpload from "../shared/PFUpload";
 
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
+
+
 const Signup = (props) => {
+
+  const dispatch = useDispatch()
 
   const [email, setEmail] = React.useState("");
   const [nickname, setNickname] = React.useState("");
@@ -11,23 +17,16 @@ const Signup = (props) => {
   const [passwordCheck, setPasswordCheck] = React.useState("")
   const [profile, setProfile] = React.useState("")
   
-
   const signup = () => {
-    axios.post('https://624ff4c4e3e5d24b34192201.mockapi.io/login', // 미리 약속한 주소
-      { // 데이터
-        email: email, 
-        nickname: nickname,
-        password: password,
-      }, 
-      // {
-      //   headers: { 'Authorization': '내 토큰 보내주기' },
-      // }
-    ).then(function (response) {
-        console.log(response);
-      })
-    .catch(function (error) {
-      console.log(error);
-    });
+    console.log('--Run Sign up')
+    if (email === "" || nickname === "" || password === "" || passwordCheck === "" || profile === "") {
+      return;
+    }
+    if (password !== passwordCheck) {
+      return;
+    }
+    dispatch(userActions.signupFB(email, nickname, password, profile));
+    alert("가입 완료!");
   }
 
   return (

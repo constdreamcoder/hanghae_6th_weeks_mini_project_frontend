@@ -44,6 +44,13 @@ const loginFB = (email, password) => {
         console.log('--login api call Success');
         console.log(response);
         localStorage.setItem("token", response.token);
+        dispatch(
+          setUser({
+            email: response.userInfo.email,
+            nickname: response.userInfo.nickname,
+            profile: response.userInfo.profile,
+          })
+        );
         history.push("/")
       })
     .catch(function (error) {
@@ -72,7 +79,6 @@ const loginCheckFB = () => {
       // 응답이 잘 들어왔으면 store에 있는 user라는 state를 dispatch 해주기
       dispatch(
         setUser({
-          id: response.userInfo.id,
           email: response.userInfo.email,
           nickname: response.userInfo.nickname,
           profile: response.userInfo.profile,
@@ -99,16 +105,19 @@ const logoutFB = () => {
 export default handleActions(
   {
     [SET_USER]: (state, action) =>
-      produce(state, (draft) => {
-        draft.user = action.payload.user;
-        draft.is_login = true;
-      }),
+    produce(state, (draft) => {
+      draft.user = action.payload.user;
+      draft.is_login = true;
+    }),
     [LOG_OUT]: (state, action) =>
-      produce(state, (draft) => {
-        draft.user = null;
-        draft.is_login = false;
-      }),
-    [GET_USER]: (state, action) => produce(state, (draft) => {}),
+    produce(state, (draft) => {
+      draft.user = null;
+      draft.is_login = false;
+    }),
+    [GET_USER]: (state, action) => 
+    produce(state, (draft) => {
+      
+    }),
   },
   initialState
 );
