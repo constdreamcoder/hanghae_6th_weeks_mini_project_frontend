@@ -1,27 +1,23 @@
 import React from "react";
 import { Grid, Text, Input, Button } from "../elements";
 import axios from "axios";
-// import Upload from "../shared/Upload";
+import PFUpload from "../shared/PFUpload";
 
 const Signup = (props) => {
 
-  const [id, setID] = React.useState("");
-  const [user_name, setUserName] = React.useState("");
-  const [pwd, setPwd] = React.useState("");
-  const [pwd_check, setPwdCheck] = React.useState("")
+  const [email, setEmail] = React.useState("");
+  const [nickname, setNickname] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [passwordCheck, setPasswordCheck] = React.useState("")
   const [profile, setProfile] = React.useState("")
   
 
   const signup = () => {
-    // input 값 테스트 해보기
-    console.log(id, user_name, pwd, pwd_check, profile)
-
-    
     axios.post('https://624ff4c4e3e5d24b34192201.mockapi.io/login', // 미리 약속한 주소
       { // 데이터
-        email: id, 
-        nickname: user_name,
-        password: pwd,
+        email: email, 
+        nickname: nickname,
+        password: password,
       }, 
       // {
       //   headers: { 'Authorization': '내 토큰 보내주기' },
@@ -46,7 +42,7 @@ const Signup = (props) => {
             label="아이디"
             placeholder="아이디를 입력해주세요."
             _onChange={(e) => {
-              setID(e.target.value);
+              setEmail(e.target.value);
             }}
           />
         </Grid>
@@ -56,7 +52,7 @@ const Signup = (props) => {
             label="닉네임"
             placeholder="닉네임을 입력해주세요."
             _onChange={(e) => {
-              setUserName(e.target.value);
+              setNickname(e.target.value);
             }}
           />
         </Grid>
@@ -66,7 +62,7 @@ const Signup = (props) => {
             label="비밀번호"
             placeholder="비밀번호를 입력해주세요."
             _onChange={(e) => {
-              setPwd(e.target.value);
+              setPassword(e.target.value);
             }}
             type="password"
           />
@@ -77,15 +73,17 @@ const Signup = (props) => {
             label="비밀번호 확인"
             placeholder="비밀번호를 다시 입력해주세요."
             _onChange={(e) => {
-              setPwdCheck(e.target.value);
+              setPasswordCheck(e.target.value);
             }}
             type="password"
           />
         </Grid>
-
-        {/* <Upload /> */}
-
-        <Button text="회원가입하기" _onClick={signup}></Button>
+        <Grid padding="16px 0px">
+          <PFUpload />
+        </Grid>
+        <Grid padding="16px 0px">
+          <Button text="회원가입하기" _onClick={signup}></Button>
+        </Grid>
       </Grid>
     </React.Fragment>
   );

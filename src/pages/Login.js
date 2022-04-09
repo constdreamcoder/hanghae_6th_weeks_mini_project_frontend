@@ -1,23 +1,32 @@
 import React from "react";
 import { Text, Input, Grid, Button } from "../elements";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 const Login = (props) => {
 
+  const dispatch = useDispatch();
+
   // id, pwd state 정의
-  const [id, setId] = React.useState('');
-  const [pwd, setPwd] = React.useState('');
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   // input 입력 값 받아와서 state 변경
   const changeId = (e) => {
-    setId(e.target.value);
+    setEmail(e.target.value);
   }
   const changePwd = (e) => {
-    setPwd(e.target.value);
+    setPassword(e.target.value);
   }
 
   // 로그인 func 정의
   const login = () => {
-    console.log('로그인 func 작성 필요')
+    console.log(email, password);
+    if (email === "" || password === "") {
+      window.alert("아이디 혹은 비밀번호가 비어있습니다. 입력해주세요.");
+      return;
+    } 
+    dispatch(userActions.loginFB(email, password))
   };
 
   return (
@@ -32,7 +41,7 @@ const Login = (props) => {
             label="아이디"
             placeholder="아이디를 입력해주세요."
             _onChange={(e) => {
-              setId(e.target.value);
+              setEmail(e.target.value);
             }}
           />
         </Grid>
@@ -42,16 +51,17 @@ const Login = (props) => {
             label="패스워드"
             placeholder="패스워드 입력해주세요."
             _onChange={(e) => {
-              setPwd(e.target.value);
+              setPassword(e.target.value);
             }}
             type="password"
           />
         </Grid>
-
-        <Button
-          text="로그인하기"
-          _onClick={login}
-        ></Button>
+        <Grid padding="16px 0px">
+          <Button
+            text="로그인하기"
+            _onClick={login}
+          ></Button>
+        </Grid>
       </Grid>
     </React.Fragment>
   );
