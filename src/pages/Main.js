@@ -1,13 +1,8 @@
 import React from "react";
 
 // components
-import Head from "../components/Head";
-
-// elements
-import { Grid, Text } from "../elements";
-
-// components
 import Body from "../components/Body";
+import BodyContainer from "../components/BodyContainer";
 import Footer from "../components/Footer";
 
 // style
@@ -16,7 +11,6 @@ import styled from "@emotion/styled";
 const Main = (props) => {
   return (
     <React.Fragment>
-      <Head />
       <Wrapper>
         <BodyContainer>
           <Body />
@@ -36,11 +30,4 @@ const Wrapper = styled.div`
   min-height: 100vh;
 `;
 
-const BodyContainer = styled.div`
-  max-width: 70vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
 export default Main;

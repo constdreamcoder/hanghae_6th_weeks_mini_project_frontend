@@ -3,14 +3,15 @@ import React from "react";
 import { width } from "@mui/system";
 
 const Image = (props) => {
-  // new : margin, display
-  const { shape, src, size, display, margin } = props;
+  // new : margin, display, paddingTop
+  const { shape, src, size, display, margin, paddingTop } = props;
 
   const styles = {
     src: src,
     size: size,
     display: display, // new
     margin: margin, // new
+    paddingTop: paddingTop, // new
   };
 
   if (shape === "circle") {
@@ -24,6 +25,10 @@ const Image = (props) => {
       </AspectOutter>
     );
   }
+
+  if (shape === "wide-image") {
+    return <></>;
+  }
   return <React.Fragment></React.Fragment>;
 };
 
@@ -33,6 +38,7 @@ Image.defaultProps = {
   size: 36,
   display: "", // new
   margin: "4px", // new
+  paddingTop: "75%", // new
 };
 
 const AspectOutter = styled.div`
@@ -42,7 +48,7 @@ const AspectOutter = styled.div`
 
 const AspectInner = styled.div`
   position: relative;
-  padding-top: 75%;
+  padding-top: ${(props) => props.paddingTop}; // new
   overflow: hidden;
   height: auto;
   background-image: url("${(props) => props.src}");
