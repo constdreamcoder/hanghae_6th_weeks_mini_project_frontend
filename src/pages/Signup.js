@@ -1,32 +1,34 @@
 import React from "react";
-import { Grid, Text, Input, Button } from "../elements";
+import { Grid, Text, Input, Button, Image } from "../elements";
 import axios from "axios";
 import PFUpload from "../shared/PFUpload";
 
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 
 const Signup = (props) => {
 
   const dispatch = useDispatch()
-
+  
   const [email, setEmail] = React.useState("");
   const [nickname, setNickname] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordCheck, setPasswordCheck] = React.useState("")
-  const [profile, setProfile] = React.useState("")
   
   const signup = () => {
     console.log('--Run Sign up')
-    if (email === "" || nickname === "" || password === "" || passwordCheck === "" || profile === "") {
-      return;
+    if (email === "" || nickname === "" || password === "" || passwordCheck === "") {
+      alert("빈칸을 모두 입력하세요.");;
     }
-    if (password !== passwordCheck) {
-      return;
+    else if (password !== passwordCheck) {
+      alert("입력한 비밀번호가 서로 다릅니다.");;
     }
-    dispatch(userActions.signupFB(email, nickname, password, profile));
-    alert("가입 완료!");
+    else {
+      console.log(email, nickname, password);
+      dispatch(userActions.signupFB(email, nickname, password));
+      alert("가입 완료!");
+    }
   }
 
   return (
@@ -38,8 +40,8 @@ const Signup = (props) => {
 
         <Grid padding="16px 0px">
           <Input
-            label="아이디"
-            placeholder="아이디를 입력해주세요."
+            label="이메일"
+            placeholder="이메일 주소를 입력해주세요."
             _onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -78,7 +80,8 @@ const Signup = (props) => {
           />
         </Grid>
         <Grid padding="16px 0px">
-          <PFUpload />
+          <Text size="14px">프로필 사진 업로드</Text>
+          <PFUpload/>
         </Grid>
         <Grid padding="16px 0px">
           <Button text="회원가입하기" _onClick={signup}></Button>

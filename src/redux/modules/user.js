@@ -23,9 +23,40 @@ const user_initial = {
   user_name: "mean0",
 };
 
-const signupFB = (email, password, nickname) => {
+const signupFB = (email, nickname, password, profile) => {
   return function (dispatch, getState, { history }) {
-    console.log('signupFB')
+    console.log('--Run signupFB')
+
+    axios.post('https://624ff4c4e3e5d24b34192201.mockapi.io/islogin', // 미리 약속한 주소
+    { // 데이터
+      email: email, 
+      nickname: nickname,
+      password: password,
+      profile: profile,
+    }, 
+    {
+      // localStorage에 있는 토큰을 get함
+      headers: { 'Authorization': localStorage.getItem("token") },
+    }
+    ).then(function (response) {
+      console.log('--islogin api call Success');
+      console.log(response);
+      // 응답이 잘 들어왔으면 store에 있는 user라는 state를 dispatch 해주기
+      dispatch(
+        setUser({
+          email: response.userInfo.email,
+          nickname: response.userInfo.nickname,
+          profile: response.userInfo.profile,
+        })
+      )
+      console.log(getState().user.email)
+    })
+    .catch(function (error) {
+      console.log('--islogin api call Fail');
+      console.log(error);
+      // 올바른 토큰이 아닐 경우 로그아웃 처리
+      dispatch(logOut());
+    });
   };
 };
 

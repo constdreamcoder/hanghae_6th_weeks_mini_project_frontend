@@ -1,5 +1,5 @@
 import React from "react";
-import {Button} from "../elements"
+import {Button, Image, Grid, Text} from "../elements"
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as imageActions } from "../redux/modules/image";
 
@@ -7,7 +7,7 @@ import { actionCreators as imageActions } from "../redux/modules/image";
 const PFUpload = (props) => {
     const dispatch = useDispatch();
     // const is_uploading = useSelector((state) => state.image.uploading);
-    const preview = useSelector((state) => state.image);
+    const preview = useSelector((state) => state.image.preview);
     const fileInput = React.useRef();
 
     const selectFile = (e) => {
@@ -37,6 +37,17 @@ const PFUpload = (props) => {
     return (
       <React.Fragment>
         <input type="file" onChange={selectFile} ref={fileInput} disabled={null}/>
+        <Grid>
+          <Grid padding="16px">
+            <Text margin="0px" size="12px" bold>
+              미리보기
+            </Text>
+          </Grid>
+          <Image
+            shape="rectangle"
+            src={preview ? preview : "http://via.placeholder.com/400x300"}
+          />
+        </Grid>
         <Button _onClick={null} text="이미지 업로드"></Button>
       </React.Fragment>
     )
