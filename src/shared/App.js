@@ -1,19 +1,26 @@
-// components
+import { BrowserRouter, Route } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "../redux/configureStore";
+
+// pages
 import Main from "../pages/Main";
 import PostDetails from "../pages/PostDetails";
 import Head from "../components/Head";
 
-// packages
-import { Route, BrowserRouter } from "react-router-dom";
+import Login from "../pages/Login";
+import Signup from "../pages/Signup";
+import { Switch } from "react-router-dom/cjs/react-router-dom.min";
 
 function App() {
   return (
     <div className="App">
       <Head />
-      <BrowserRouter>
+      <ConnectedRouter history={history}>
         <Route path="/" exact component={Main} />
         <Route path="/detail" exact component={PostDetails} />
-      </BrowserRouter>
+        <Route path="/login" exact component={Login} />
+        <Route path="/signup" exact component={Signup} />
+      </ConnectedRouter>
     </div>
   );
 }

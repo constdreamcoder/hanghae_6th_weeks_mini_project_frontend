@@ -17,9 +17,9 @@ const PostDetails = (props) => {
         <Grid is_flex>
           <Grid is_flex width="auto">
             <Image margin="0px 10px 0px 0px" shape="circle" />
-            <span>아이디</span>
+            <span>닉네임</span>
           </Grid>
-          <span>2021-02-28 10:00:00</span>
+          <span>게시일: 2021-02-28 10:00:00</span>
         </Grid>
         <Image paddingTop="40%" shape="rectangle" />
         <Grid padding="60px">
