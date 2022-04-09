@@ -33,29 +33,27 @@ const signupFB = (email, nickname, password, profile) => {
       nickname: nickname,
       password: password,
       profile: profile,
-    }, 
-    {
-      // localStorage에 있는 토큰을 get함
-      headers: { 'Authorization': localStorage.getItem("token") },
-    }
-    ).then(function (response) {
-      console.log('--islogin api call Success');
+    })
+    .then(function (response) {
+      console.log('--singnUpFB api call Success');
       console.log(response);
       // 응답이 잘 들어왔으면 store에 있는 user라는 state를 dispatch 해주기
+
+      // 여기에 displayName을 email로 변경해주기 (확인 필요)
+      // 그러고 나서, then으로 이어서 하단을 실행해야 하는데 이것도 확인 필요
       dispatch(
         setUser({
           email: response.userInfo.email,
           nickname: response.userInfo.nickname,
           profile: response.userInfo.profile,
         })
-      )
-      console.log(getState().user.email)
+      );
+      history.push("/");
     })
     .catch(function (error) {
-      console.log('--islogin api call Fail');
+      console.log('--singnUpFB api call Fail');
       console.log(error);
-      // 올바른 토큰이 아닐 경우 로그아웃 처리
-      dispatch(logOut());
+      alert(`회원가입에 실패하였습니다.`)
     });
   };
 };
@@ -128,7 +126,11 @@ const loginCheckFB = () => {
 
 const logoutFB = () => {
   return function (dispatch, getState, { history }) {
-    console.log('loginCheckFB')
+    console.log('-- Run loginoutFB')
+    // auth.signOut().then(() => {
+    //   dispatch(logOut());
+    //   history.replace("/");
+    // });
   };
 };
 
@@ -139,16 +141,18 @@ export default handleActions(
     produce(state, (draft) => {
       draft.user = action.payload.user;
       draft.is_login = true;
-    }),
+      }
+    ),
     [LOG_OUT]: (state, action) =>
-    produce(state, (draft) => {
+      produce(state, (draft) => {
       draft.user = null;
       draft.is_login = false;
-    }),
+      }
+    ),
     [GET_USER]: (state, action) => 
-    produce(state, (draft) => {
-      
-    }),
+      produce(state, (draft) => {
+      }
+    ),
   },
   initialState
 );
