@@ -33,8 +33,10 @@ const Head = (props) => {
           </Grid>
         </Grid>
         <Grid is_flex width="30%">
-          <Button margin="0px 20px 0px 0px">로그인</Button>
-          <Button>회원가입</Button>
+          <Button bg="rgb(38, 194, 129)" margin="0px 20px 0px 0px">
+            로그인
+          </Button>
+          <Button bg="rgb(38, 194, 129)">회원가입</Button>
         </Grid>
       </HeadContainer>
 

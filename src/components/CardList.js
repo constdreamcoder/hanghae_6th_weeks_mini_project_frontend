@@ -42,7 +42,7 @@ const CardGrid = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: 60px;
   @media screen and (max-width: 718px) {
     gap: 3px;
   }

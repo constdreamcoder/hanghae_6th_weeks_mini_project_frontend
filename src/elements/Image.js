@@ -48,7 +48,7 @@ const AspectInner = styled.div`
   background-image: url("${(props) => props.src}");
   backgroud-size: cover;
   background-position: center; // new
-  border-radius: 20px 20px 0px 0px; // new
+  // border-radius: 20px 20px 0px 0px; // new
   background-repeat: no-repeat;
 `;
 
