@@ -4,16 +4,8 @@ import styled from "styled-components";
 import { Text, Grid } from "./index";
 
 const Input = (props) => {
-    const {
-        label,
-        placeholder,
-        _onChange,
-        type,
-        multiLine,
-        name,
-        value,
-        margin,
-    } = props;
+    const { label, placeholder, _onChange, type, multiLine, name, margin } =
+        props;
 
     if (multiLine) {
         return (
@@ -21,14 +13,15 @@ const Input = (props) => {
                 {label && <Text margin="0px">{label}</Text>}
                 <ElTextarea
                     rows="10"
+                    type={type}
                     placeholder={placeholder}
                     onChange={_onChange}
                     name={name}
-                    value={value}
                 ></ElTextarea>
             </Grid>
         );
     }
+
     return (
         <React.Fragment>
             <Grid>
@@ -39,7 +32,6 @@ const Input = (props) => {
                     placeholder={placeholder}
                     onChange={_onChange}
                     name={name}
-                    value={value}
                     margin={margin}
                 />
             </Grid>

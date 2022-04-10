@@ -4,7 +4,8 @@ import { width } from "@mui/system";
 
 const Image = (props) => {
     // new : margin, display, paddingTop
-    const { shape, src, size, display, margin, paddingTop } = props;
+    const { shape, src, size, display, margin, paddingTop, previewSize } =
+        props;
 
     const styles = {
         src: src,
@@ -12,6 +13,7 @@ const Image = (props) => {
         display: display, // new
         margin: margin, // new
         paddingTop: paddingTop, // new
+        previewSize: previewSize,
     };
 
     if (shape === "circle") {
@@ -39,6 +41,7 @@ Image.defaultProps = {
     display: "", // new
     margin: "4px", // new
     paddingTop: "75%", // new
+    previewSize: false,
 };
 
 const AspectOutter = styled.div`
