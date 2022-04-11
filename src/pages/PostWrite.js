@@ -2,16 +2,13 @@ import React from "react";
 import AWS from "aws-sdk";
 import moment from "moment";
 
-import styled from "styled-components";
-import { Grid, Input, Button, Text, Image } from "../elements/index";
-import Upload from "../shared/Upload";
+import { Grid, Input, Button, Image } from "../elements/index";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as imageActions } from "../redux/modules/image";
 
 const PostWrite = (props) => {
     const dispatch = useDispatch();
-
     //=================================================preview관련
     const fileInput = React.useRef();
     const previewFile = (e) => {

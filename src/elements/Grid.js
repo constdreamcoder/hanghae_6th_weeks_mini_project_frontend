@@ -13,6 +13,7 @@ const Grid = (props) => {
         position, // new
         zIndex,
         height, // new
+        _onClick, //추가했습니다.
     } = props;
 
     // children이라는 변수는 의미적으로 style과 관련이 없는 변수이기 때문에
@@ -30,7 +31,9 @@ const Grid = (props) => {
     };
     return (
         <React.Fragment>
-            <GridBox {...styles}> {children}</GridBox>
+            <GridBox {...styles} onClick={_onClick}>
+                {children}
+            </GridBox>
         </React.Fragment>
     );
 };
@@ -46,6 +49,7 @@ Grid.defaultProps = {
     position: "", // new
     zIndex: "", // new
     height: "100%", //new
+    onClick: () => {}, // 추가했습니다.
 };
 
 const GridBox = styled.div`
