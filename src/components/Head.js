@@ -3,11 +3,14 @@ import React from "react";
 // style
 import styled from "styled-components";
 import "./HeadLogo.css";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as commentActions } from "../redux/modules/comment";
 
 // elements
 import { Grid, Button, Image, Text } from "../elements";
 
 const Head = (props) => {
+  const dispatch = useDispatch();
   return (
     <React.Fragment>
       {/* <Grid is_flex bg="yellow" padding=" 0px 0.8rem" position="sticky"> */}
@@ -36,7 +39,14 @@ const Head = (props) => {
           <Button bg="rgb(38, 194, 129)" margin="0px 20px 0px 0px">
             로그인
           </Button>
-          <Button bg="rgb(38, 194, 129)">회원가입</Button>
+          <Button
+            bg="rgb(38, 194, 129)"
+            // _onClick={() => {
+            //   dispatch(commentActions.getCommentsDB(1));
+            // }}
+          >
+            회원가입
+          </Button>
         </Grid>
       </HeadContainer>
 

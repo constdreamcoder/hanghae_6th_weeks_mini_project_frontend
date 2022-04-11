@@ -4,6 +4,7 @@ import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as commentActions } from "../redux/modules/comment";
 
 // pages
 import Main from "../pages/Main";
