@@ -11,14 +11,6 @@ const Login = (props) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  // input 입력 값 받아와서 state 변경
-  const changeId = (e) => {
-    setEmail(e.target.value);
-  }
-  const changePwd = (e) => {
-    setPassword(e.target.value);
-  }
-
   // 로그인 func 정의
   const login = () => {
     console.log(email, password);
