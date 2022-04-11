@@ -9,9 +9,12 @@ import { actionCreators as commentActions } from "../redux/modules/comment";
 
 const CommentList = (props) => {
   const dispatch = useDispatch();
-  let is_login = true;
+  let is_login = false;
+
   const comment_list = useSelector((state) => state.comment.list);
   console.log(comment_list);
+  // const postId = comment_list[0].postId;
+  // console.log(postId);
 
   const [comment, setComment] = React.useState("");
   const [clickedCommentId, setclickedCommentId] = React.useState("");
@@ -22,15 +25,18 @@ const CommentList = (props) => {
       console.log(clickedCommentId, comment);
       dispatch(commentActions.editCommentDB(clickedCommentId, comment));
     } else {
+      console.log("댓글전송!");
       dispatch(commentActions.sendCommentDB(comment));
     }
-
     setComment("");
+    // window.location.reload();
   };
 
   React.useEffect(() => {
     // 댓글을 가져온다.
-    dispatch(commentActions.getCommentsDB(1));
+    if (comment_list.length >= 0) {
+      dispatch(commentActions.getCommentsDB("aaa"));
+    }
   }, []);
 
   return (
@@ -58,6 +64,7 @@ const CommentList = (props) => {
               setComment={setComment}
               setclickedCommentId={setclickedCommentId}
               {...comment}
+              // _postId={postId}
             ></CommentItem>
           ))}
         </Grid>
@@ -69,8 +76,9 @@ const CommentList = (props) => {
 export default CommentList;
 
 const CommentItem = (props) => {
-  const { commentId, nickname, profile, comment, createdAt } = props;
-
+  const { _postId, postId, commentId, nickname, profile, comment, createdAt } =
+    props;
+  // console.log(_postId);
   const dispatch = useDispatch();
 
   const editComment = () => {
@@ -78,6 +86,7 @@ const CommentItem = (props) => {
     props.setclickedCommentId(commentId);
   };
   const deleteComment = () => {
+    // dispatch(commentActions.getCommentsDB(_postId));
     dispatch(commentActions.deleteCommentDB(commentId));
   };
 

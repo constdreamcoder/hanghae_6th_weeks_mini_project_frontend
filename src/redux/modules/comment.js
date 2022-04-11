@@ -20,6 +20,7 @@ const intialState = {
 };
 
 const initialSingleDataForm = {
+  postId: "",
   commentId: "",
   nickname: "test0",
   profile: "RamenJjangJjangMan",
@@ -45,15 +46,11 @@ const sendCommentDB = (comment = "") => {
   return function (dispatch, getState, { history }) {
     let createdAt = moment().format("YYYY-MM-DD hh:mm:ss");
 
-    let new_comment = {
-      ...initialSingleDataForm,
-      comment: comment,
-      createdAt: createdAt,
-    };
-
+    let postId = "aaa";
+    console.log(typeof `/api/comments/${postId}`);
     // 만들어둔 instance에 보낼 요청 타입과 주소로 요청합니다.
     instance
-      .post("/comments", {
+      .post(`/api/comments/${postId}`, {
         comment: comment,
         createdAt: createdAt,
       })
@@ -61,6 +58,15 @@ const sendCommentDB = (comment = "") => {
         //요청이 정상적으로 끝나고 응답을 받아왔다면 수행할 작업!
         console.log("통신 성공!!");
         console.log(res);
+
+        let new_comment = {
+          ...initialSingleDataForm,
+          postId: res.data.comments[0].postId,
+          commentId: res.data.comments[0]._id,
+          comment: comment,
+          createdAt: createdAt,
+        };
+
         dispatch(sendComment(new_comment));
       })
       .catch((error) => {
@@ -90,15 +96,50 @@ const sendCommentDB = (comment = "") => {
 const getCommentsDB = (postId) => {
   return function (dispatch, getState, { history }) {
     instance
-      .get("/comments")
+      .get(`/api/comments/${postId}`)
       .then((res) => {
         //요청이 정상적으로 끝나고 응답을 받아왔다면 수행할 작업!
         console.log(res);
-        dispatch(getComments(res.data));
+
+        // DB와 리덕스 저장 파일 형식 맞추기
+
+        let comment_list = [];
+
+        res.data.comments.forEach((comment) =>
+          comment_list.push({
+            postId: comment.postId,
+            commentId: comment._id,
+            nickname: "test0",
+            profile:
+              "https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg",
+            comment: comment.comment,
+            createdAt: comment.createdAt,
+          })
+        );
+        console.log(comment_list);
+        dispatch(getComments(comment_list));
       })
-      .catch((err) => {
+      .catch((error) => {
+        // // 요청이 정상적으로 끝나지 않았을 때(오류 났을 때) 수행할 작업!
+        // console.log("에러 났어!");
         // 요청이 정상적으로 끝나지 않았을 때(오류 났을 때) 수행할 작업!
         console.log("에러 났어!");
+        // console.log(err.toJSON());
+        if (error.response) {
+          // 요청이 전송되었고, 서버는 2xx 외의 상태 코드로 응답했습니다.
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // 요청이 전송되었지만, 응답이 수신되지 않았습니다.
+          // 'error.request'는 브라우저에서 XMLHtpRequest 인스턴스이고,
+          // node.js에서는 http.ClientRequest 인스턴스입니다.
+          console.log(error.request);
+        } else {
+          // 오류가 발생한 요청을 설정하는 동안 문제가 발생했습니다.
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
       });
   };
 };
@@ -133,7 +174,9 @@ const editCommentDB = (commentId = "", comment = "") => {
 
     // 만들어둔 instance에 보낼 요청 타입과 주소로 요청합니다.
     instance
-      .put(`/comments/${commentId}`, editedComment)
+      .put(`/api/comments/${commentId}`, {
+        comment: comment,
+      })
       .then((res) => {
         //요청이 정상적으로 끝나고 응답을 받아왔다면 수행할 작업!
         console.log("요청 성공!!");
@@ -141,29 +184,63 @@ const editCommentDB = (commentId = "", comment = "") => {
 
         dispatch(editComment(editedComment));
       })
-      .catch((err) => {
+      .catch((error) => {
+        // // 요청이 정상적으로 끝나지 않았을 때(오류 났을 때) 수행할 작업!
+        // console.log("에러 났어!");
         // 요청이 정상적으로 끝나지 않았을 때(오류 났을 때) 수행할 작업!
         console.log("에러 났어!");
-        console.log(err);
+        // console.log(err.toJSON());
+        if (error.response) {
+          // 요청이 전송되었고, 서버는 2xx 외의 상태 코드로 응답했습니다.
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // 요청이 전송되었지만, 응답이 수신되지 않았습니다.
+          // 'error.request'는 브라우저에서 XMLHtpRequest 인스턴스이고,
+          // node.js에서는 http.ClientRequest 인스턴스입니다.
+          console.log(error.request);
+        } else {
+          // 오류가 발생한 요청을 설정하는 동안 문제가 발생했습니다.
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
       });
   };
 };
 
 // delete
-const deleteCommentDB = (commentId) => {
+const deleteCommentDB = (commentId = "") => {
   return function (dispatch, getState, { history }) {
     console.log(getState());
     instance
-      .delete(`/comments/${commentId}`)
+      .delete(`/api/comments/${commentId}`)
       .then((res) => {
         //요청이 정상적으로 끝나고 응답을 받아왔다면 수행할 작업!
         console.log(res);
-
         dispatch(deletComment(commentId));
       })
-      .catch((err) => {
+      .catch((error) => {
+        // // 요청이 정상적으로 끝나지 않았을 때(오류 났을 때) 수행할 작업!
+        // console.log("에러 났어!");
         // 요청이 정상적으로 끝나지 않았을 때(오류 났을 때) 수행할 작업!
         console.log("에러 났어!");
+        // console.log(err.toJSON());
+        if (error.response) {
+          // 요청이 전송되었고, 서버는 2xx 외의 상태 코드로 응답했습니다.
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // 요청이 전송되었지만, 응답이 수신되지 않았습니다.
+          // 'error.request'는 브라우저에서 XMLHtpRequest 인스턴스이고,
+          // node.js에서는 http.ClientRequest 인스턴스입니다.
+          console.log(error.request);
+        } else {
+          // 오류가 발생한 요청을 설정하는 동안 문제가 발생했습니다.
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
       });
   };
 };
@@ -178,6 +255,7 @@ export default handleActions(
       }),
     [GET_COMMENTS]: (state, action) =>
       produce(state, (draft) => {
+        // console.log(action.payload);
         draft.list = action.payload.comment_list;
       }),
     [Edit_COMMENT]: (state, action) =>
