@@ -12,13 +12,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 
-
-
-
-
 const Head = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
+  const userInfo = useSelector((state) => state.user.user);
+
   const logout = () => {
     console.log("-- Run logout")
     dispatch(userActions.logoutFB());
@@ -49,8 +47,11 @@ const Head = (props) => {
           </Grid>
         </Grid>
         <Grid is_flex width="30%">
-          {is_login === true?
+          {is_login?
             <React.Fragment>
+              <Grid>
+                <Text>{userInfo.nickname}</Text>
+              </Grid>
               <Button bg="rgb(38, 194, 129)" _onClick={logout}>
                 로그아웃
               </Button>

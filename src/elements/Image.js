@@ -35,16 +35,15 @@ const Image = (props) => {
 
 Image.defaultProps = {
   shape: "circle",
-  src: "https://d5nunyagcicgy.cloudfront.net/external_assets/hero_examples/hair_beach_v391182663/original.jpeg",
-  size: 36,
+  src: "",
+  size: 80,
   display: "", // new
-  margin: "auto", // new
+  margin: "0", // new
   paddingTop: "75%", // new
 };
 
 const AspectOutter = styled.div`
-  width: 100%;
-  min-width: 250px;
+  width: fit-content;
 `;
 
 const AspectInner = styled.div`
@@ -53,7 +52,7 @@ const AspectInner = styled.div`
   overflow: hidden;
   height: auto;
   background-image: url("${(props) => props.src}");
-  backgroud-size: cover;
+  background-size: cover;
   background-position: center; // new
   // border-radius: 20px 20px 0px 0px; // new
   background-repeat: no-repeat;

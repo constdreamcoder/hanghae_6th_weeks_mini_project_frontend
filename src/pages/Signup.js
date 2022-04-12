@@ -79,7 +79,7 @@ const Signup = (props) => {
           />
         </Grid>
         <Grid padding="16px 0px">
-          <Text size="14px">프로필 사진 업로드</Text>
+          <Text size="14px">프로필 사진</Text>
           <PFUpload/>
         </Grid>
         <Grid padding="16px 0px">

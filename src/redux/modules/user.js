@@ -39,19 +39,6 @@ const signupFB = (email, nickname, password, confirmPassword, profile) => {
     .then(function (response) {
       console.log('--singnUpFB api call Success');
       console.log(response);
-      // 응답이 잘 들어왔으면 store에 있는 user라는 state를 dispatch 해주기
-
-      // 여기에 displayName을 email로 변경해주기 (확인 필요)
-      // 그러고 나서, then으로 이어서 하단을 실행해야 하는데 이것도 확인 필요
-
-      // 하단의 정보를 response로 받아야 함
-      // dispatch(
-      //   setUser({
-      //     email: response.userInfo.email,
-      //     nickname: response.userInfo.nickname,
-      //     profile: response.userInfo.profile,
-      //   })
-      // );
       alert("회원가입 완료!");
       history.replace("/login");
     })
@@ -80,20 +67,6 @@ const loginFB = (email, password) => {
         console.log('--login api call Success');
         console.log(response);
         localStorage.setItem("token", response.data.token);
-        // dispatch(
-        //   setUser({
-        //     "email": response.userInfo.email,
-        //     "nickname": response.userInfo.nickname,
-        //     "profile": response.userInfo.profile,
-        //   })
-        // );
-        // dispatch(
-        //   setUser({
-        //     email: "eve.holt@reqres.in",
-        //     nickname: "pistol",
-        //     profile: "",
-        //   })
-        // );
         alert("로그인 성공!");
         history.replace("/");
         window.location.reload();
@@ -124,9 +97,9 @@ const loginCheckFB = () => {
       // 응답이 잘 들어왔으면 store에 있는 user라는 state를 dispatch 해주기
       dispatch(
         setUser({
-          email: response.data.userInfo.email,
-          nickname: response.data.userInfo.nickname,
-          profile: response.data.userInfo.profile,
+          email: response.data.userInfo.userInfo.email,
+          nickname: response.data.userInfo.userInfo.nickname,
+          profile: response.data.userInfo.userInfo.profile,
         })
       )
     })
