@@ -15,7 +15,7 @@ export const Apis = {
     // post
     addPost: (contents) => Api.post("/api/posts", contents),
     editPost: (postId, contents) => Api.put(`api/posts/${postId}`, contents),
-    delPost: (postId) => Api.delete(`api/posts/${postId}`),
+    deletePost: (postId) => Api.delete(`api/posts/${postId}`),
     roadPostList: () => Api.get("/api/postList"),
     roadPost: (postId) => Api.get(`/api/posts/${postId}`),
 

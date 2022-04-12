@@ -6,8 +6,12 @@ import React from "react";
 
 import { Button, Grid, Image, Text } from "../elements";
 import { history } from "../redux/configureStore";
+import { useDispatch } from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
 
 const Post = (props) => {
+    const dispatch = useDispatch();
+
     return (
         <React.Fragment>
             <Grid>
@@ -26,7 +30,14 @@ const Post = (props) => {
                         >
                             수정하기
                         </Button>
-                        <Button width="100px">삭제하기</Button>
+                        <Button
+                            width="100px"
+                            _onClick={() =>
+                                dispatch(postActions.deletePostFB(props.postId))
+                            }
+                        >
+                            삭제하기
+                        </Button>
                     </Grid>
                 )}
                 <Grid padding="16px">

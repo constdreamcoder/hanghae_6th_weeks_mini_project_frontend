@@ -42,7 +42,7 @@ const Input = (props) => {
                     onChange={_onChange}
                     name={name}
                     margin={margin}
-                    value={value}
+                    defaultValue={value}
                 />
             </Grid>
         </React.Fragment>

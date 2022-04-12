@@ -3,7 +3,7 @@ import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as postActions } from "../redux/modules/post";
 
@@ -21,6 +21,7 @@ import PostEdit from "../pages/PostEdit";
 
 function App() {
     const dispatch = useDispatch();
+    const post_list = useSelector((state) => state.post.list);
 
     // 페이지 조회할 때마다 실행, token이 유효한지 여부 체크
     React.useEffect(() => {
@@ -30,7 +31,11 @@ function App() {
     });
 
     React.useEffect(() => {
-        dispatch(postActions.getPostFB());
+        if (post_list.length === 0) {
+            console.log(post_list);
+            dispatch(postActions.getPostFB());
+            console.log("=====조회됐음====");
+        }
     }, []);
 
     return (

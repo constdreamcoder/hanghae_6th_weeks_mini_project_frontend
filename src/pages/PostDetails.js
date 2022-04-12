@@ -14,11 +14,8 @@ import { useSelector } from "react-redux";
 
 const PostDetails = (props) => {
     const params_postId = props.match.params.postId;
-    console.log(params_postId);
     const post_list = useSelector((state) => state.post.list);
-    console.log(post_list);
     const this_post = post_list.find((post) => post.postId === params_postId);
-    console.log(this_post);
 
     return (
         <React.Fragment>

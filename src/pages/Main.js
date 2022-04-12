@@ -18,7 +18,6 @@ import { actionCreators as postActions } from "../redux/modules/post";
 
 const Main = (props) => {
     // 추가한 부분
-    const dispatch = useDispatch();
     const post_list = useSelector((state) => state.post.list);
 
     const { history } = props;
