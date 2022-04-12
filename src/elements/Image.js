@@ -4,7 +4,7 @@ import { width } from "@mui/system";
 
 const Image = (props) => {
   // new : margin, display, paddingTop
-  const { shape, src, size, display, margin, paddingTop } = props;
+  const { shape, src, size, display, margin, paddingTop, border } = props;
 
   const styles = {
     src: src,
@@ -12,6 +12,7 @@ const Image = (props) => {
     display: display, // new
     margin: margin, // new
     paddingTop: paddingTop, // new
+    border: border,
   };
 
   if (shape === "circle") {
@@ -37,7 +38,7 @@ Image.defaultProps = {
   src: "https://d5nunyagcicgy.cloudfront.net/external_assets/hero_examples/hair_beach_v391182663/original.jpeg",
   size: 36,
   display: "", // new
-  margin: "4px", // new
+  margin: "auto", // new
   paddingTop: "75%", // new
 };
 
@@ -63,13 +64,13 @@ const ImageCircle = styled.div`
   width: var(--size);
   height: var(--size);
   border-radius: var(--size);
-
   background-image: url("${(props) => props.src}");
   background-size: cover;
   margin: ${(props) => props.margin}; // new
   background-position: center; // new
   background-repeat: no-repeat;
   display: ${(props) => props.display}; // new
+  border: 1px solid rgba(0,0,0,0.1);
 `;
 
 export default Image;

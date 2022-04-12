@@ -27,7 +27,7 @@ const Login = (props) => {
         <Text size="32px" bold>
           로그인
         </Text>
-
+        
         <Grid padding="16px 0px">
           <Input
             label="아이디"

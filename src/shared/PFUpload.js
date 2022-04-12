@@ -1,7 +1,8 @@
-import React from "react";
-import {Button, Image, Grid, Text} from "../elements"
+import React, { useState } from 'react';
+import {Button, Image, Grid, Text, Modal, FileInput, DragDrop } from "../elements"
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as imageActions } from "../redux/modules/image";
+import { ModalHeader, ModalBody, ModalFooter } from "../elements/Modal";
 
 
 const PFUpload = (props) => {
@@ -9,6 +10,8 @@ const PFUpload = (props) => {
     // const is_uploading = useSelector((state) => state.image.uploading);
     const preview = useSelector((state) => state.image.preview);
     const fileInput = React.useRef();
+    const [showModal, setShowModal] = useState(false);
+
 
     const selectFile = (e) => {
         const reader = new FileReader();
@@ -24,31 +27,56 @@ const PFUpload = (props) => {
           dispatch(imageActions.setPreview(reader.result))
         };
     }
-    
-    // const uploadFB = () => {
-    //     if (!fileInput.current || fileInput.current.files.length === 0) {
-    //       window.alert("파일을 선택해주세요!");
-    //       return;
-    //     }
-    
-    //     dispatch(imageActions.uploadImageFB(fileInput.current.files[0]));
-    //   };
+
+    const [fileUrl, setFileUrl] = useState(null);
+  
 
     return (
       <React.Fragment>
-        <input type="file" onChange={selectFile} ref={fileInput} disabled={null}/>
         <Grid>
-          <Grid padding="16px">
-            <Text margin="0px" size="12px" bold>
-              미리보기
-            </Text>
-          </Grid>
-          <Image
-            shape="rectangle"
-            src={preview ? preview : "http://via.placeholder.com/400x300"}
-          />
+        <Image
+                  shape="circle"
+                  src={preview ? preview : "https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg"}
+                  />
+            <Button text="프로필 업로드" _onClick={() => {
+              console.log('hi');
+              return setShowModal(true);
+              }} />
+            <Modal
+                show={showModal}
+                setShow={setShowModal}
+            // hideCloseButton
+            >
+                <ModalHeader>
+                    <h2>프로필 업로드하기</h2>
+                </ModalHeader>
+                <ModalBody>
+                  
+                  <DragDrop />
+
+                </ModalBody>
+                <ModalFooter>
+                    <Button text="프로필 업로드" _onClick={
+                      () => setShowModal(false)
+                      }>
+                    </Button>
+                </ModalFooter>
+            </Modal>
+
+          {/* <Modal>
+            <ModalHeader>
+            </ModalHeader>
+            <ModalBody>
+              <Image
+                shape="circle"
+                src={preview ? preview : "https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg"}
+              />
+              <input type="file" onChange={selectFile} ref={fileInput} disabled={null}/>
+            </ModalBody>
+            <ModalFooter>
+            </ModalFooter>
+          </Modal> */}
         </Grid>
-        <Button _onClick={null} text="이미지 업로드"></Button>
       </React.Fragment>
     )
 }

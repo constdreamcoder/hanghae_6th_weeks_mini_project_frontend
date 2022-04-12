@@ -14,20 +14,19 @@ const Signup = (props) => {
   const [email, setEmail] = React.useState("");
   const [nickname, setNickname] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [passwordCheck, setPasswordCheck] = React.useState("")
+  const [confirmPassword, setConfirmPassword] = React.useState("")
   
   const signup = () => {
     console.log('--Run Sign up')
-    if (email === "" || nickname === "" || password === "" || passwordCheck === "") {
+    if (email === "" || nickname === "" || password === "" || confirmPassword === "") {
       alert("빈칸을 모두 입력하세요.");;
     }
-    else if (password !== passwordCheck) {
+    else if (password !== confirmPassword) {
       alert("입력한 비밀번호가 서로 다릅니다.");;
     }
     else {
       console.log(email, nickname, password);
-      dispatch(userActions.signupFB(email, nickname, password));
-      alert("가입 완료!");
+      dispatch(userActions.signupFB(email, nickname, password, confirmPassword));
     }
   }
 
@@ -74,7 +73,7 @@ const Signup = (props) => {
             label="비밀번호 확인"
             placeholder="비밀번호를 다시 입력해주세요."
             _onChange={(e) => {
-              setPasswordCheck(e.target.value);
+              setConfirmPassword(e.target.value);
             }}
             type="password"
           />

@@ -7,7 +7,23 @@ import "./HeadLogo.css";
 // elements
 import { Grid, Button, Image, Text } from "../elements";
 
+import { history } from "../redux/configureStore";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
+
+
+
+
+
+
 const Head = (props) => {
+  const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.user.is_login);
+  const logout = () => {
+    console.log("-- Run logout")
+    dispatch(userActions.logoutFB());
+  }
+
   return (
     <React.Fragment>
       {/* <Grid is_flex bg="yellow" padding=" 0px 0.8rem" position="sticky"> */}
@@ -33,10 +49,24 @@ const Head = (props) => {
           </Grid>
         </Grid>
         <Grid is_flex width="30%">
-          <Button bg="rgb(38, 194, 129)" margin="0px 20px 0px 0px">
-            로그인
-          </Button>
-          <Button bg="rgb(38, 194, 129)">회원가입</Button>
+          {is_login === true?
+            <React.Fragment>
+              <Button bg="rgb(38, 194, 129)" _onClick={logout}>
+                로그아웃
+              </Button>
+            </React.Fragment>
+          : <React.Fragment>
+              <Button bg="rgb(38, 194, 129)" margin="0px 20px 0px 0px" _onClick={() => {
+                history.push("/login");
+              }}>
+                로그인
+              </Button>
+              <Button bg="rgb(38, 194, 129)"_onClick={() => {
+                history.push("/signup");
+              }}>
+                회원가입
+              </Button>
+            </React.Fragment>}
         </Grid>
       </HeadContainer>
 

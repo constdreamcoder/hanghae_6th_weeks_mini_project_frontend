@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
+import { history } from "../configureStore";
 
 // actions
 const LOG_IN = "LOG_IN";
@@ -23,16 +24,17 @@ const user_initial = {
   user_name: "mean0",
 };
 
-const signupFB = (email, nickname, password, profile) => {
+const signupFB = (email, nickname, password, confirmPassword, profile) => {
   return function (dispatch, getState, { history }) {
     console.log('--Run signupFB')
 
-    axios.post('https://624ff4c4e3e5d24b34192201.mockapi.io/islogin', // 미리 약속한 주소
+    axios.post('http://13.125.254.69/api/signup', // 미리 약속한 주소
     { // 데이터
-      email: email, 
-      nickname: nickname,
-      password: password,
-      profile: profile,
+        "email": email, 
+        "nickname": nickname,
+        "password": password,
+        "confirmPassword": confirmPassword,
+        "profile": "",
     })
     .then(function (response) {
       console.log('--singnUpFB api call Success');
@@ -41,19 +43,22 @@ const signupFB = (email, nickname, password, profile) => {
 
       // 여기에 displayName을 email로 변경해주기 (확인 필요)
       // 그러고 나서, then으로 이어서 하단을 실행해야 하는데 이것도 확인 필요
-      dispatch(
-        setUser({
-          email: response.userInfo.email,
-          nickname: response.userInfo.nickname,
-          profile: response.userInfo.profile,
-        })
-      );
-      history.push("/");
+
+      // 하단의 정보를 response로 받아야 함
+      // dispatch(
+      //   setUser({
+      //     email: response.userInfo.email,
+      //     nickname: response.userInfo.nickname,
+      //     profile: response.userInfo.profile,
+      //   })
+      // );
+      alert("회원가입 완료!");
+      history.replace("/login");
     })
     .catch(function (error) {
       console.log('--singnUpFB api call Fail');
       console.log(error);
-      alert(`회원가입에 실패하였습니다.`)
+      // alert(error.errorMessage);
     });
   };
 };
@@ -64,27 +69,38 @@ const loginFB = (email, password) => {
     // 로그인 후 인증상태 지속
     console.log('--Run loginFB');
     // console.log(email, password);
-    axios.post('https://624ff4c4e3e5d24b34192201.mockapi.io/login', // 미리 약속한 주소
+    axios.post('http://13.125.254.69/api/login', // 미리 약속한 주소
       { // 데이터
-        email: email, 
-        password: password,
+        // "email": "eve.holt@reqres.in",
+        // "password": "pistol",
+        "email": email, 
+        "password": password,
       }
-    ).then(function (response) {
+    ).then((response) => {
         console.log('--login api call Success');
         console.log(response);
-        localStorage.setItem("token", response.token);
-        dispatch(
-          setUser({
-            email: response.userInfo.email,
-            nickname: response.userInfo.nickname,
-            profile: response.userInfo.profile,
-          })
-        );
-        history.push("/")
+        localStorage.setItem("token", response.data.token);
+        // dispatch(
+        //   setUser({
+        //     "email": response.userInfo.email,
+        //     "nickname": response.userInfo.nickname,
+        //     "profile": response.userInfo.profile,
+        //   })
+        // );
+        // dispatch(
+        //   setUser({
+        //     email: "eve.holt@reqres.in",
+        //     nickname: "pistol",
+        //     profile: "",
+        //   })
+        // );
+        alert("로그인 성공!");
+        history.replace("/");
+        window.location.reload();
       })
-    .catch(function (error) {
+    .catch((error) => {
       console.log("아이디 혹은 비밀번호가 맞지 않습니다." + error);
-      alert("아이디 혹은 비밀번호가 맞지 않습니다.")
+      alert("아이디 혹은 비밀번호가 맞지 않습니다.");
     });
   };
 };
@@ -94,13 +110,13 @@ const loginCheckFB = () => {
   return function (dispatch, getState, { history }) {
     console.log('--Run loginCheckFB');
     // /islogin 호출
-    axios.post('https://624ff4c4e3e5d24b34192201.mockapi.io/islogin', // 미리 약속한 주소
-    {
-      // token: localStorage.getItem("token"),
-    }, 
+    axios.post('http://13.125.254.69/api/loginInfo', // 미리 약속한 주소
     {
       // localStorage에 있는 토큰을 get함
-      headers: { 'Authorization': localStorage.getItem("token") },
+      "token": localStorage.getItem("token")
+    }, 
+    {
+      // headers: { 'Authorization': localStorage.getItem("token") },
     }
     ).then(function (response) {
       console.log('--islogin api call Success');
@@ -108,29 +124,26 @@ const loginCheckFB = () => {
       // 응답이 잘 들어왔으면 store에 있는 user라는 state를 dispatch 해주기
       dispatch(
         setUser({
-          email: response.userInfo.email,
-          nickname: response.userInfo.nickname,
-          profile: response.userInfo.profile,
+          email: response.data.userInfo.email,
+          nickname: response.data.userInfo.nickname,
+          profile: response.data.userInfo.profile,
         })
       )
-      console.log(getState().user.email)
     })
     .catch(function (error) {
       console.log('--islogin api call Fail');
       console.log(error);
-      // 올바른 토큰이 아닐 경우 로그아웃 처리
-      dispatch(logOut());
+      // // 올바른 토큰이 아닐 경우 로그아웃 처리
+      // dispatch(logOut());
     });
   };
 };
 
 const logoutFB = () => {
   return function (dispatch, getState, { history }) {
-    console.log('-- Run loginoutFB')
-    // auth.signOut().then(() => {
-    //   dispatch(logOut());
-    //   history.replace("/");
-    // });
+    console.log('-- Run loginoutFB');
+    localStorage.removeItem('token');
+    dispatch(logOut());
   };
 };
 
