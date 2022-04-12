@@ -30,7 +30,7 @@ function App() {
       <Head />
       <ConnectedRouter history={history}>
         <Route path="/" exact component={Main} />
-        <Route path="/detail" exact component={PostDetails} />
+        <Route path="/detail/:postId" exact component={PostDetails} />
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Signup} />
       </ConnectedRouter>

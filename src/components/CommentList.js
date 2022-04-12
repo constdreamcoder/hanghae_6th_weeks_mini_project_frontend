@@ -34,7 +34,7 @@ const CommentList = (props) => {
 
   React.useEffect(() => {
     // 댓글을 가져온다.
-    if (comment_list.length >= 0) {
+    if (comment_list.length > 0) {
       dispatch(commentActions.getCommentsDB("aaa"));
     }
   }, []);
