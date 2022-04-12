@@ -14,6 +14,11 @@ const PostDetails = (props) => {
   return (
     <React.Fragment>
       <BodyContainer>
+        <Grid center="center">
+          <Text size="60px" bold>
+            제목
+          </Text>
+        </Grid>
         <Grid is_flex>
           <Grid is_flex width="auto">
             <Image margin="0px 10px 0px 0px" shape="circle" />
