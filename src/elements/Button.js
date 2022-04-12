@@ -1,5 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+
+// styles
+import styled, { keyframes } from "styled-components";
 
 const Button = (props) => {
   // new : bg, padding
@@ -56,23 +58,36 @@ const ElButton = styled.button`
   border-radius: 8px;
 `;
 
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
 const FloatButton = styled.button`
-    width: 50px;
-    height: 50px;
-    background-color: #212121;
-    color: #ffffff;
-    box-sizing: border-box;
-    font-size: 36px;
-    font-weight: 800;
-    position: fixed;
-    bottom: 50px;
-    right: 16px;
-    text-align: center;
-    // vertical-align: middle;
-    border: none;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 36px;
+  position: fixed;
+  bottom: 30px;
+  right: 60px;
+  border: none;
+  text-decoration: none;
+  color: white;
+  background-color: rgb(38, 194, 129);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 300ms ease-in-out;
+  &:hover {
+    animation: ${rotate} 2s linear infinite;
+  }
 `;
 export default Button;

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import React from "react";
-import { width } from "@mui/system";
 
 const Image = (props) => {
     // new : margin, display, paddingTop

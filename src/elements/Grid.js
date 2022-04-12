@@ -64,9 +64,9 @@ const GridBox = styled.div`
             ? `display: flex; align-items: center; justify-content: space-between`
             : ""}
   ${(props) => (props.center ? `text-align: center` : "")};
-    position: ${(props) => props.position}; // new
-    z-index: ${(props) => props.zIndex}; // new
-    overflow: hidden; // new
+  position: ${(props) => props.position};
+  z-index: ${(props) => props.zIndex};
+  overflow: hidden;
 `;
 
 export default Grid;

@@ -3,14 +3,15 @@ import React from "react";
 // style
 import styled from "styled-components";
 import "./HeadLogo.css";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as commentActions } from "../redux/modules/comment";
 
 // elements
 import { Grid, Button, Image, Text } from "../elements";
 
 import { history } from "../redux/configureStore";
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-
 
 const Head = (props) => {
   const dispatch = useDispatch();
@@ -18,9 +19,9 @@ const Head = (props) => {
   const userInfo = useSelector((state) => state.user.user);
 
   const logout = () => {
-    console.log("-- Run logout")
+    console.log("-- Run logout");
     dispatch(userActions.logoutFB());
-  }
+  };
 
   return (
     <React.Fragment>
@@ -47,7 +48,7 @@ const Head = (props) => {
           </Grid>
         </Grid>
         <Grid is_flex width="30%">
-          {is_login?
+          {is_login ? (
             <React.Fragment>
               <Grid>
                 <Text>{userInfo.nickname}</Text>
@@ -56,18 +57,27 @@ const Head = (props) => {
                 로그아웃
               </Button>
             </React.Fragment>
-          : <React.Fragment>
-              <Button bg="rgb(38, 194, 129)" margin="0px 20px 0px 0px" _onClick={() => {
-                history.push("/login");
-              }}>
+          ) : (
+            <React.Fragment>
+              <Button
+                bg="rgb(38, 194, 129)"
+                margin="0px 20px 0px 0px"
+                _onClick={() => {
+                  history.push("/login");
+                }}
+              >
                 로그인
               </Button>
-              <Button bg="rgb(38, 194, 129)"_onClick={() => {
-                history.push("/signup");
-              }}>
+              <Button
+                bg="rgb(38, 194, 129)"
+                _onClick={() => {
+                  history.push("/signup");
+                }}
+              >
                 회원가입
               </Button>
-            </React.Fragment>}
+            </React.Fragment>
+          )}
         </Grid>
       </HeadContainer>
 

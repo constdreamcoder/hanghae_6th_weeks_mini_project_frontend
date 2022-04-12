@@ -7,11 +7,14 @@ import { Grid, Image, Button, Text } from "../elements";
 import styled from "styled-components";
 
 const Card = (props) => {
+  console.log(props);
+  const { postId, title, content, item, image, createdAt, _onClick } = props; // 닉네임, 프로필 사진
   return (
     <React.Fragment>
       <CardContainer>
         <CardBox>
           <Image shape="rectangle" />
+
           <Grid height="auto" is_flex width="auto" margin="7px 10px">
             <Image display="inline-block" margin="0" />
             <Text margin="0px 70px 0px 0px" bold>
@@ -24,16 +27,10 @@ const Card = (props) => {
           </Grid>
           <Grid margin="0px 10px" height="25%" width="auto" position="relative">
             <Text margin="7px 5px" bold size="1.5rem">
-              라면먹장~!!
+              {title}
             </Text>
             <Text margin="5px 0px" position="absolute">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              {item}
             </Text>
           </Grid>
           <Grid height="auto" is_flex width="auto" margin="10px 10px">
@@ -45,10 +42,14 @@ const Card = (props) => {
             {/* <Button>바로가기</Button> */}
           </Grid>
         </CardBox>
-        {/* <CardCover></CardCover> */}
+        <CardCover onClick={_onClick}></CardCover>
       </CardContainer>
     </React.Fragment>
   );
+};
+
+Card.defaultProps = {
+  _onClick: () => {},
 };
 
 const CardCover = styled.div`
