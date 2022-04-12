@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Button, Image, Grid, Text, Modal, FileInput, DragDrop, ProfileBtn } from "../elements"
+import {Button, Image, Grid, Text, Modal, FileInput, DragDrop, ProfileBt } from "../elements"
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as imageActions } from "../redux/modules/image";
 import { ModalHeader, ModalBody, ModalFooter } from "../elements/Modal";
@@ -34,52 +34,29 @@ const PFUpload = (props) => {
     return (
       <React.Fragment>
         <Grid is_flex>
-            <Image
-                shape="circle"
-                src={preview ? preview : "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"}
-            />
-            <Button width="80px" text="업로드" src={preview ? preview : "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"} _onClick={() => {
-              return setShowModal(true);
-              }} />
-                  </Grid>
-          <Modal
-              show={showModal}
-              setShow={setShowModal}
-          // hideCloseButton
-          >
-              <ModalHeader>
-                  <h2>프로필 업로드하기</h2>
-              </ModalHeader>
-              <ModalBody>
-              <Image
-              shape="rectangle"
-              src={preview ? preview : "https://uihut.b-cdn.net/uploads/UH33Q2aic1INs5zJ.png"}
-                  />
-              <input type="file" onChange={selectFile} ref={fileInput} disabled={null}/>
-
-              </ModalBody>
-              <ModalFooter>
-                  <Button text="프로필 업로드" _onClick={
-                    () => setShowModal(false)
-                    }>
-                  </Button>
-              </ModalFooter>
-          </Modal>
-
-          {/* <Modal>
+          <Image
+            shape="circle"
+            src={preview ? preview : "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"}
+          />
+          <Button width="80px" text="업로드" src={preview ? preview : "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"} _onClick={() => {return setShowModal(true);}} />
+          </Grid>
+          <Modal show={showModal} setShow={setShowModal}>
             <ModalHeader>
+                <h2>프로필 업로드하기</h2>
             </ModalHeader>
             <ModalBody>
               <Image
                 shape="circle"
-                src={preview ? preview : "https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg"}
-              />
+                src={preview ? preview : "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"}/>
               <input type="file" onChange={selectFile} ref={fileInput} disabled={null}/>
             </ModalBody>
             <ModalFooter>
+              <Button text="프로필 업로드" _onClick={
+                () => setShowModal(false)
+                }>
+              </Button>
             </ModalFooter>
-          </Modal> */}
-
+          </Modal>
       </React.Fragment>
     )
 }
