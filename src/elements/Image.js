@@ -4,7 +4,7 @@ import { width } from "@mui/system";
 
 const Image = (props) => {
     // new : margin, display, paddingTop
-    const { shape, src, size, display, margin, paddingTop, previewSize } =
+    const { shape, src, size, display, margin, paddingTop, previewSize, border } =
         props;
 
     const styles = {
@@ -14,6 +14,7 @@ const Image = (props) => {
         margin: margin, // new
         paddingTop: paddingTop, // new
         previewSize: previewSize,
+        border: border,
     };
 
     if (shape === "circle") {

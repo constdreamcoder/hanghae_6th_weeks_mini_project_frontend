@@ -1,33 +1,33 @@
 import React from "react";
-import { Grid, Text, Input, Button } from "../elements";
+import { Grid, Text, Input, Button, Image } from "../elements";
 import axios from "axios";
 import PFUpload from "../shared/PFUpload";
 
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
+
+
 const Signup = (props) => {
 
+  const dispatch = useDispatch()
+  
   const [email, setEmail] = React.useState("");
   const [nickname, setNickname] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [passwordCheck, setPasswordCheck] = React.useState("")
-  const [profile, setProfile] = React.useState("")
+  const [confirmPassword, setConfirmPassword] = React.useState("")
   
-
   const signup = () => {
-    axios.post('https://624ff4c4e3e5d24b34192201.mockapi.io/login', // 미리 약속한 주소
-      { // 데이터
-        email: email, 
-        nickname: nickname,
-        password: password,
-      }, 
-      // {
-      //   headers: { 'Authorization': '내 토큰 보내주기' },
-      // }
-    ).then(function (response) {
-        console.log(response);
-      })
-    .catch(function (error) {
-      console.log(error);
-    });
+    console.log('--Run Sign up')
+    if (email === "" || nickname === "" || password === "" || confirmPassword === "") {
+      alert("빈칸을 모두 입력하세요.");;
+    }
+    else if (password !== confirmPassword) {
+      alert("입력한 비밀번호가 서로 다릅니다.");;
+    }
+    else {
+      console.log(email, nickname, password);
+      dispatch(userActions.signupFB(email, nickname, password, confirmPassword));
+    }
   }
 
   return (
@@ -39,8 +39,8 @@ const Signup = (props) => {
 
         <Grid padding="16px 0px">
           <Input
-            label="아이디"
-            placeholder="아이디를 입력해주세요."
+            label="이메일"
+            placeholder="이메일 주소를 입력해주세요."
             _onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -73,13 +73,14 @@ const Signup = (props) => {
             label="비밀번호 확인"
             placeholder="비밀번호를 다시 입력해주세요."
             _onChange={(e) => {
-              setPasswordCheck(e.target.value);
+              setConfirmPassword(e.target.value);
             }}
             type="password"
           />
         </Grid>
         <Grid padding="16px 0px">
-          <PFUpload />
+          <Text size="14px">프로필 사진</Text>
+          <PFUpload/>
         </Grid>
         <Grid padding="16px 0px">
           <Button text="회원가입하기" _onClick={signup}></Button>

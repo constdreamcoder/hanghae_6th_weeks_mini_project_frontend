@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
+import { history } from "../configureStore";
 
 // actions
 const LOG_IN = "LOG_IN";
@@ -23,101 +24,123 @@ const user_initial = {
     user_name: "mean0",
 };
 
-const signupFB = (email, password, nickname) => {
-    return function (dispatch, getState, { history }) {
-        console.log("signupFB");
-    };
+const signupFB = (email, nickname, password, confirmPassword, profile) => {
+  return function (dispatch, getState, { history }) {
+    console.log('--Run signupFB')
+
+    axios.post('http://13.125.254.69/api/signup', // 미리 약속한 주소
+    { // 데이터
+        "email": email, 
+        "nickname": nickname,
+        "password": password,
+        "confirmPassword": confirmPassword,
+        "profile": "",
+    })
+    .then(function (response) {
+      console.log('--singnUpFB api call Success');
+      console.log(response);
+      alert("회원가입 완료!");
+      history.replace("/login");
+    })
+    .catch(function (error) {
+      console.log('--singnUpFB api call Fail');
+      console.log(error);
+      // alert(error.errorMessage);
+    });
+  };
 };
 
 // middleware actions
 const loginFB = (email, password) => {
-    return function (dispatch, getState, { history }) {
-        // 로그인 후 인증상태 지속
-        console.log("--Run loginFB");
-        // console.log(email, password);
-        axios
-            .post(
-                "https://624ff4c4e3e5d24b34192201.mockapi.io/login", // 미리 약속한 주소
-                {
-                    // 데이터
-                    email: email,
-                    password: password,
-                }
-            )
-            .then(function (response) {
-                console.log("--login api call Success");
-                console.log(response);
-                localStorage.setItem("token", response.token);
-                history.push("/");
-            })
-            .catch(function (error) {
-                console.log("아이디 혹은 비밀번호가 맞지 않습니다." + error);
-                alert("아이디 혹은 비밀번호가 맞지 않습니다.");
-            });
-    };
+  return function (dispatch, getState, { history }) {
+    // 로그인 후 인증상태 지속
+    console.log('--Run loginFB');
+    // console.log(email, password);
+    axios.post('http://13.125.254.69/api/login', // 미리 약속한 주소
+      { // 데이터
+        // "email": "eve.holt@reqres.in",
+        // "password": "pistol",
+        "email": email, 
+        "password": password,
+      }
+    ).then((response) => {
+        console.log('--login api call Success');
+        console.log(response);
+        localStorage.setItem("token", response.data.token);
+        alert("로그인 성공!");
+        history.replace("/");
+        window.location.reload();
+      })
+    .catch((error) => {
+      console.log("아이디 혹은 비밀번호가 맞지 않습니다." + error);
+      alert("아이디 혹은 비밀번호가 맞지 않습니다.");
+    });
+  };
 };
 
 // 로그인 체크를 해서 새로고침하면 데이터가 날아가버리는 리덕스에 다시 데이터를 집어 넣는다.
 const loginCheckFB = () => {
-    return function (dispatch, getState, { history }) {
-        console.log("--Run loginCheckFB");
-        // /islogin 호출
-        axios
-            .post(
-                "https://624ff4c4e3e5d24b34192201.mockapi.io/islogin", // 미리 약속한 주소
-                {
-                    // token: localStorage.getItem("token"),
-                },
-                {
-                    // localStorage에 있는 토큰을 get함
-                    headers: { Authorization: localStorage.getItem("token") },
-                }
-            )
-            .then(function (response) {
-                console.log("--islogin api call Success");
-                console.log(response);
-                // 응답이 잘 들어왔으면 store에 있는 user라는 state를 dispatch 해주기
-                dispatch(
-                    setUser({
-                        id: response.userInfo.id,
-                        email: response.userInfo.email,
-                        nickname: response.userInfo.nickname,
-                        profile: response.userInfo.profile,
-                    })
-                );
-                console.log(getState().user.email);
-            })
-            .catch(function (error) {
-                console.log("--islogin api call Fail");
-                console.log(error);
-                // 올바른 토큰이 아닐 경우 로그아웃 처리
-                dispatch(logOut());
-            });
-    };
+  return function (dispatch, getState, { history }) {
+    console.log('--Run loginCheckFB');
+    // /islogin 호출
+    axios.post('http://13.125.254.69/api/loginInfo', // 미리 약속한 주소
+    {
+      // localStorage에 있는 토큰을 get함
+      "token": localStorage.getItem("token")
+    }, 
+    {
+      // headers: { 'Authorization': localStorage.getItem("token") },
+    }
+    ).then(function (response) {
+      console.log('--islogin api call Success');
+      console.log(response);
+      // 응답이 잘 들어왔으면 store에 있는 user라는 state를 dispatch 해주기
+      dispatch(
+        setUser({
+          email: response.data.userInfo.userInfo.email,
+          nickname: response.data.userInfo.userInfo.nickname,
+          profile: response.data.userInfo.userInfo.profile,
+        })
+      )
+    })
+    .catch(function (error) {
+      console.log('--islogin api call Fail');
+      console.log(error);
+      // // 올바른 토큰이 아닐 경우 로그아웃 처리
+      // dispatch(logOut());
+    });
+  };
 };
 
 const logoutFB = () => {
-    return function (dispatch, getState, { history }) {
-        console.log("loginCheckFB");
-    };
+  return function (dispatch, getState, { history }) {
+    console.log('-- Run loginoutFB');
+    localStorage.removeItem('token');
+    dispatch(logOut());
+  };
 };
 
 //reducer
 export default handleActions(
-    {
-        [SET_USER]: (state, action) =>
-            produce(state, (draft) => {
-                draft.user = action.payload.user;
-                draft.is_login = true;
-            }),
-        [LOG_OUT]: (state, action) =>
-            produce(state, (draft) => {
-                draft.user = null;
-                draft.is_login = false;
-            }),
-        [GET_USER]: (state, action) => produce(state, (draft) => {}),
-    },
-    initialState
+  {
+    [SET_USER]: (state, action) =>
+    produce(state, (draft) => {
+      draft.user = action.payload.user;
+      draft.is_login = true;
+      }
+    ),
+    [LOG_OUT]: (state, action) =>
+      produce(state, (draft) => {
+      draft.user = null;
+      draft.is_login = false;
+      }
+    ),
+    [GET_USER]: (state, action) => 
+      produce(state, (draft) => {
+      }
+    ),
+  },
+  initialState
 );
 
 // action creator export
