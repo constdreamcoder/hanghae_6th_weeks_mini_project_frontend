@@ -2,33 +2,29 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
 import { history } from "../configureStore";
-
 // actions
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
 const SET_USER = "SET_USER"; // login과 signup 모두 사용자의 정보를 등록하여야 하기 때문이다.
-
 // action creators
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user) => ({ user }));
 const setUser = createAction(SET_USER, (user) => ({ user }));
-
 // initialState
 const initialState = {
     user: null,
     is_login: false,
 };
-
 const user_initial = {
     user_name: "mean0",
 };
-
 const signupFB = (email, nickname, password, confirmPassword, profile) => {
     return function (dispatch, getState, { history }) {
+        console.log("--Run signupFB");
         axios
             .post(
-                "http://13.125.254.69/api/signup", // 미리 약속한 주소
+                "http://52.78.20.222/api/signup", // 미리 약속한 주소
                 {
                     // 데이터
                     email: email,
@@ -39,25 +35,46 @@ const signupFB = (email, nickname, password, confirmPassword, profile) => {
                 }
             )
             .then(function (response) {
+                console.log("--singnUpFB api call Success");
+                console.log(response);
                 alert("회원가입 완료!");
                 history.replace("/login");
             })
             .catch(function (error) {
-                console.log("--singnUpFB api call Fail");
-                console.log(error);
+                //요청이 정상적으로 끝나지 않았을 때(오류 났을 때) 수행할 작업!
+                console.log("에러 났어!");
+                // console.log(err.toJSON());
+                if (error.response) {
+                    // 요청이 전송되었고, 서버는 2xx 외의 상태 코드로 응답했습니다.
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    // 요청이 전송되었지만, 응답이 수신되지 않았습니다.
+                    // 'error.request'는 브라우저에서 XMLHtpRequest 인스턴스이고,
+                    // node.js에서는 http.ClientRequest 인스턴스입니다.
+                    console.log(error.request);
+                } else {
+                    // 오류가 발생한 요청을 설정하는 동안 문제가 발생했습니다.
+                    console.log("Error", error.message);
+                }
+                console.log(error.config);
+
+                // console.log("--singnUpFB api call Fail");
+                // console.log(error);
                 // alert(error.errorMessage);
             });
     };
 };
-
 // middleware actions
 const loginFB = (email, password) => {
     return function (dispatch, getState, { history }) {
         // 로그인 후 인증상태 지속
+        console.log("--Run loginFB");
         // console.log(email, password);
         axios
             .post(
-                "http://13.125.254.69/api/login", // 미리 약속한 주소
+                "http://52.78.20.222/api/login", // 미리 약속한 주소
                 {
                     // 데이터
                     // "email": "eve.holt@reqres.in",
@@ -67,6 +84,8 @@ const loginFB = (email, password) => {
                 }
             )
             .then((response) => {
+                console.log("--login api call Success");
+                console.log(response);
                 localStorage.setItem("token", response.data.token);
                 alert("로그인 성공!");
                 history.replace("/");
@@ -78,29 +97,35 @@ const loginFB = (email, password) => {
             });
     };
 };
-
 // 로그인 체크를 해서 새로고침하면 데이터가 날아가버리는 리덕스에 다시 데이터를 집어 넣는다.
 const loginCheckFB = () => {
     return function (dispatch, getState, { history }) {
+        console.log("--Run loginCheckFB");
         // /islogin 호출
         axios
-            .post(
-                "http://13.125.254.69/api/loginInfo", // 미리 약속한 주소
+            .get(
+                "http://52.78.20.222/api/islogin", // 미리 약속한 주소
+                // {
+                //   // localStorage에 있는 토큰을 get함
+                //   "token": localStorage.getItem("token")
+                // },
                 {
-                    // localStorage에 있는 토큰을 get함
-                    token: localStorage.getItem("token"),
-                },
-                {
-                    // headers: { 'Authorization': localStorage.getItem("token") },
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
+                    },
                 }
             )
             .then(function (response) {
+                console.log("--islogin api call Success");
+                console.log(response);
                 // 응답이 잘 들어왔으면 store에 있는 user라는 state를 dispatch 해주기
                 dispatch(
                     setUser({
-                        email: response.data.userInfo.userInfo.email,
-                        nickname: response.data.userInfo.userInfo.nickname,
-                        profile: response.data.userInfo.userInfo.profile,
+                        email: response.data.user.email,
+                        nickname: response.data.user.nickname,
+                        profile: response.data.user.profile,
                     })
                 );
             })
@@ -112,14 +137,13 @@ const loginCheckFB = () => {
             });
     };
 };
-
 const logoutFB = () => {
     return function (dispatch, getState, { history }) {
+        console.log("-- Run loginoutFB");
         localStorage.removeItem("token");
         dispatch(logOut());
     };
 };
-
 //reducer
 export default handleActions(
     {
@@ -137,7 +161,6 @@ export default handleActions(
     },
     initialState
 );
-
 // action creator export
 const actionCreators = {
     logOut,
@@ -147,5 +170,4 @@ const actionCreators = {
     loginCheckFB,
     logoutFB,
 };
-
 export { actionCreators };

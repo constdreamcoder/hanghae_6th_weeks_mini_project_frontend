@@ -4,10 +4,7 @@ import moment from "moment";
 
 import { Grid, Input, Button, Image } from "../elements/index";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    actionCreators,
-    actionCreators as postActions,
-} from "../redux/modules/post";
+import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as imageActions } from "../redux/modules/image";
 import { history } from "../redux/configureStore";
 

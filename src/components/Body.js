@@ -1,18 +1,13 @@
 import React from "react";
-import { history } from "../redux/configureStore";
 
 // style
 import styled from "@emotion/styled";
 
 // components
 import CardList from "./CardList";
-//이 밑으로 지우시면 됩니다.
-import { Button } from "../elements";
-import { useSelector } from "react-redux";
 
 const Body = (props) => {
-    // user 지우셔도 됩니다.
-    const user = useSelector((state) => state.user);
+    console.log(props);
 
     return (
         <React.Fragment>
@@ -24,17 +19,6 @@ const Body = (props) => {
                 </BannerText>
             </BannerImage>
             <CardList />
-            {/* 임시버튼입니다 */}
-            {user.is_login && (
-                <Button
-                    is_float
-                    text="+"
-                    _onClick={() => {
-                        history.push("/write");
-                    }}
-                ></Button>
-            )}
-            {/* 여기까지임시버튼입니다 */}
         </React.Fragment>
     );
 };

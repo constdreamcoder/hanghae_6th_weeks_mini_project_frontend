@@ -9,6 +9,7 @@ import { actionCreators as imageActions } from "../redux/modules/image";
 
 const PostWrite = (props) => {
     const dispatch = useDispatch();
+
     //=================================================preview관련
     const fileInput = React.useRef();
     const previewFile = (e) => {
@@ -90,7 +91,6 @@ const PostWrite = (props) => {
             }
         );
     };
-
     return (
         <React.Fragment>
             <Grid width="50vw" margin="20px auto">
