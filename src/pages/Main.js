@@ -11,6 +11,9 @@ import { Button } from "../elements";
 // style
 import styled from "@emotion/styled";
 
+// shared
+import Permit from "../shared/Permit";
+
 //추가한부분
 import { useSelector, useDispatch } from "react-redux";
 
@@ -51,7 +54,9 @@ const Main = (props) => {
         {/* 추가한 부분 끝 */}
         <Footer />
       </Wrapper>
-      <Button is_float text="+"></Button>
+      <Permit>
+        <Button is_float text="+"></Button>
+      </Permit>
     </React.Fragment>
   );
 };
