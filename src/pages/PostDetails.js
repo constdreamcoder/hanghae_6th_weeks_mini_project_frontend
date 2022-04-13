@@ -49,7 +49,7 @@ const PostDetails = (props) => {
             placeholder="코멘트를 입력해주세요!!"
           ></Input>
         </Grid>
-        <CommentList />
+        <CommentList postId={postId} />
       </BodyContainer>
 
       {/* <Post {...this_post} is_me /> */}

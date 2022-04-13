@@ -41,12 +41,10 @@ const deletComment = createAction(DELETE_COMMENT, (commentId) => ({
 // Middlewares
 
 // send a newly written comment
-const sendCommentDB = (comment = "") => {
+const sendCommentDB = (comment = "", postId) => {
   return function (dispatch, getState, { history }) {
     let createdAt = moment().format("YYYY-MM-DD hh:mm:ss");
-
-    let postId = "aaa";
-    console.log(typeof `/api/comments/${postId}`);
+    console.log(comment, postId);
     // 만들어둔 instance에 보낼 요청 타입과 주소로 요청합니다.
     instance
       .post(`/api/comments/${postId}`, {
@@ -69,6 +67,7 @@ const sendCommentDB = (comment = "") => {
         dispatch(sendComment(new_comment));
       })
       .catch((error) => {
+        window.alert("댓글 전송에 실패하셨습니다.");
         // 요청이 정상적으로 끝나지 않았을 때(오류 났을 때) 수행할 작업!
         console.log("에러 났어!");
         // console.log(err.toJSON());
@@ -100,11 +99,28 @@ const getCommentsDB = (postId) => {
         //요청이 정상적으로 끝나고 응답을 받아왔다면 수행할 작업!
         console.log(res);
 
-        // DB와 리덕스 저장 파일 형식 맞추기
+        // 한번이상 수정된 댓글 필터링
+        let _comment_list = res.data.comments;
+        _comment_list.map((comment) => {
+          if (comment.createdAt.indexOf("(수정됨)") !== -1) {
+            return (comment["createdAt"] =
+              comment.createdAt.split("(수정됨)")[0]);
+          }
+        });
 
+        console.log(_comment_list);
+
+        // return;
+        // 댓글 역순으로 정렬
+        let DescentedOrder = [...res.data.comments].sort((a, b) => {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        console.log(DescentedOrder);
+        // DB와 리덕스 저장 파일 형식 맞추기
+        // return;
         let comment_list = [];
 
-        res.data.comments.forEach((comment) =>
+        DescentedOrder.forEach((comment) =>
           comment_list.push({
             postId: comment.postId,
             commentId: comment._id,
@@ -118,8 +134,6 @@ const getCommentsDB = (postId) => {
         dispatch(getComments(comment_list));
       })
       .catch((error) => {
-        // // 요청이 정상적으로 끝나지 않았을 때(오류 났을 때) 수행할 작업!
-        // console.log("에러 났어!");
         // 요청이 정상적으로 끝나지 않았을 때(오류 났을 때) 수행할 작업!
         console.log("에러 났어!");
         // console.log(err.toJSON());

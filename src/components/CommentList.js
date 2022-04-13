@@ -6,37 +6,51 @@ import { Grid, Image, Text, Input, Button } from "../elements";
 // packages
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../redux/modules/comment";
+import { actionCreators as userActions } from "../redux/modules/user";
+import { history } from "../redux/configureStore";
+
+// shared
 
 const CommentList = (props) => {
+  const { postId } = props;
   const dispatch = useDispatch();
-  let is_login = false;
+  const is_login = useSelector((state) => state.user.is_login);
+  console.log(is_login);
 
   const comment_list = useSelector((state) => state.comment.list);
   console.log(comment_list);
-  // const postId = comment_list[0].postId;
-  // console.log(postId);
 
   const [comment, setComment] = React.useState("");
   const [clickedCommentId, setclickedCommentId] = React.useState("");
-
+  let token = localStorage.getItem("token");
   // 댓글 전송
   const sendComment = () => {
+    console.log(token);
+    console.log(is_login);
     if (is_login) {
-      console.log(clickedCommentId, comment);
-      dispatch(commentActions.editCommentDB(clickedCommentId, comment));
+      if (comment === "") {
+        window.alert("내용이 비어있어요!! 내용을 채워주세요!!");
+      }
+      if (clickedCommentId) {
+        window.alert("댓글 수정이 완료 되었습니다.");
+        dispatch(commentActions.editCommentDB(clickedCommentId, comment));
+      } else {
+        window.alert("댓글 전송 완료!!");
+        dispatch(commentActions.sendCommentDB(comment, postId));
+      }
     } else {
-      console.log("댓글전송!");
-      dispatch(commentActions.sendCommentDB(comment));
+      window.alert("로그인부터 해주세요!!");
+      history.replace("/login");
     }
     setComment("");
-    // window.location.reload();
   };
 
   React.useEffect(() => {
+    console.log("댓글 가져오기");
     // 댓글을 가져온다.
-    if (comment_list.length > 0) {
-      dispatch(commentActions.getCommentsDB("aaa"));
-    }
+    // if (comment_list.length >= 0) {
+    dispatch(commentActions.getCommentsDB(postId));
+    // }
   }, []);
 
   return (
@@ -64,7 +78,6 @@ const CommentList = (props) => {
               setComment={setComment}
               setclickedCommentId={setclickedCommentId}
               {...comment}
-              // _postId={postId}
             ></CommentItem>
           ))}
         </Grid>
@@ -78,7 +91,6 @@ export default CommentList;
 const CommentItem = (props) => {
   const { _postId, postId, commentId, nickname, profile, comment, createdAt } =
     props;
-  // console.log(_postId);
   const dispatch = useDispatch();
 
   const editComment = () => {
@@ -93,7 +105,8 @@ const CommentItem = (props) => {
   return (
     <Grid is_flex>
       <Grid is_flex width="auto">
-        <Image shape="circle"></Image>
+        {/* 프로필 삭제 예정 */}
+        {/* <Image src="" shape="circle"></Image> */}
         <Text margin="0px 10px" bold>
           {nickname}
         </Text>

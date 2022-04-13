@@ -2,6 +2,8 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { Apis } from "../../shared/Api";
 
+import moment from "moment";
+
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST";
@@ -28,14 +30,25 @@ const initialPost = {
   item: "",
   image: "",
   createdAt: "",
+  // 추가되어져야 할 항목들
+  // nickname: "",
+  // profile: "",
+  // comments_cnt: "",
 };
 
 // middlewares
 const addPostFB = (contents = "") => {
   return function (dispatch, getState, { history }) {
     const postContents = {
-      ...initialPost,
-      ...contents,
+      // ...initialPost,
+      // ...contents,
+      title: "유느님",
+      content:
+        "유느님은 자체, 대체 불가능, 감히 어느 안전이라고 유느님을 거스르랴!",
+      item: "빛, 찬란, 유느님 그 자체",
+      image:
+        "https://d5nunyagcicgy.cloudfront.net/external_assets/hero_examples/hair_beach_v391182663/original.jpeg",
+      createdAt: moment().format("YYYY-MM-DD hh:mm:ss"),
     };
 
     Apis.addPost(postContents)
@@ -51,7 +64,26 @@ const addPostFB = (contents = "") => {
         history.replace("/");
       })
       .catch(function (error) {
-        console.log("addPostFB에러", error);
+        // console.log("addPostFB에러", error);
+
+        // 요청이 정상적으로 끝나지 않았을 때(오류 났을 때) 수행할 작업!
+        console.log("에러 났어!");
+        // console.log(err.toJSON());
+        if (error.response) {
+          // 요청이 전송되었고, 서버는 2xx 외의 상태 코드로 응답했습니다.
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // 요청이 전송되었지만, 응답이 수신되지 않았습니다.
+          // 'error.request'는 브라우저에서 XMLHtpRequest 인스턴스이고,
+          // node.js에서는 http.ClientRequest 인스턴스입니다.
+          console.log(error.request);
+        } else {
+          // 오류가 발생한 요청을 설정하는 동안 문제가 발생했습니다.
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
       });
   };
 };
