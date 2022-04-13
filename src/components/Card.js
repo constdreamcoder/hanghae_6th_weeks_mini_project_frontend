@@ -7,13 +7,18 @@ import { Grid, Image, Button, Text } from "../elements";
 import styled from "styled-components";
 
 const Card = (props) => {
-  console.log(props);
-  const { postId, title, content, item, image, createdAt, _onClick } = props; // 닉네임, 프로필 사진
+  // console.log(props);
+  const { postId, title, content, item, image, createdAt, _onClick } = props; // 닉네임, 프로필 사진, 아마 댓글도??
   return (
     <React.Fragment>
       <CardContainer>
         <CardBox>
-          <Image shape="rectangle" />
+          <Grid height="auto" width="auto">
+            <Image src={image} shape="rectangle" />
+            <CardCover className="cover" onClick={_onClick}>
+              <CardCover>바로가기</CardCover>
+            </CardCover>
+          </Grid>
 
           <Grid height="auto" is_flex width="auto" margin="7px 10px">
             <Image display="inline-block" margin="0" />
@@ -42,7 +47,8 @@ const Card = (props) => {
             {/* <Button>바로가기</Button> */}
           </Grid>
         </CardBox>
-        <CardCover onClick={_onClick}></CardCover>
+
+        {/* <CardCoverLetter>바로가기</CardCoverLetter> */}
       </CardContainer>
     </React.Fragment>
   );
@@ -51,14 +57,6 @@ const Card = (props) => {
 Card.defaultProps = {
   _onClick: () => {},
 };
-
-const CardCover = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  opacity: 0.4;
-  display: hidden;
-`;
 
 const CardContainer = styled.div`
   width: 350px;
@@ -73,6 +71,11 @@ const CardContainer = styled.div`
     transform: perspective(150px) translateZ(5px);
     box-shadow: -4px -4px 20px rgba(0, 0, 0, 0.505);
   }
+
+  &:hover .cover {
+    opacity: 0.4;
+    display: block;
+  }
 `;
 
 const CardBox = styled.div`
@@ -80,6 +83,26 @@ const CardBox = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
+`;
+
+const CardCover = styled.div`
+  width: 100%;
+  height: 53%;
+  background-color: black;
+  // opacity: 0.4;
+  display: none;
+  display: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 300ms ease-in-out;
+`;
+
+const CardCoverLetter = styled.div`
+  font-size: 40px;
+  position: abosolute;
+  top: 0;
+  left: 0;
 `;
 
 export default Card;

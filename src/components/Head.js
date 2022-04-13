@@ -23,6 +23,10 @@ const Head = (props) => {
     dispatch(userActions.logoutFB());
   };
 
+  const moveToHome = () => {
+    history.replace("/");
+  };
+
   return (
     <React.Fragment>
       {/* <Grid is_flex bg="yellow" padding=" 0px 0.8rem" position="sticky"> */}
@@ -32,6 +36,7 @@ const Head = (props) => {
             src="https://thumbs.dreamstime.com/b/fridge-refrigerator-icon-comic-style-freezer-container-vector-cartoon-illustration-pictogram-fridge-business-concept-splash-160335838.jpg"
             size={100}
             shape="circle"
+            _onClick={moveToHome}
           />
           <HeadLogo className="headLogo">
             <span>냉</span>

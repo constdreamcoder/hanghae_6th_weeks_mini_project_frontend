@@ -5,7 +5,6 @@ import moment from "moment";
 
 // Link with DB
 import instance from "../../shared/Request";
-// import { apis } from "../../shared/Request";
 
 // Actions
 const SEND_COMMENT = "SEND_COMMENT";
@@ -20,11 +19,11 @@ const intialState = {
 };
 
 const initialSingleDataForm = {
-  postId: "",
-  commentId: "",
+  postId: "test",
+  commentId: "test",
   nickname: "test0",
-  profile: "RamenJjangJjangMan",
-  comment: "",
+  profile: "test",
+  comment: "test",
   createdAt: moment().format("YYYY-MM-DD hh:mm:ss"),
 };
 // Actions Creators
@@ -109,9 +108,8 @@ const getCommentsDB = (postId) => {
           comment_list.push({
             postId: comment.postId,
             commentId: comment._id,
-            nickname: "test0",
-            profile:
-              "https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg",
+            nickname: comment.nickname,
+            profile: comment.profile,
             comment: comment.comment,
             createdAt: comment.createdAt,
           })
@@ -255,7 +253,6 @@ export default handleActions(
       }),
     [GET_COMMENTS]: (state, action) =>
       produce(state, (draft) => {
-        // console.log(action.payload);
         draft.list = action.payload.comment_list;
       }),
     [Edit_COMMENT]: (state, action) =>
@@ -272,9 +269,6 @@ export default handleActions(
         let new_comment_list = draft.list.filter(
           (comment) => comment.commentId !== action.payload.commentId
         );
-
-        // console.log(new_comment_list);
-
         draft.list = [...new_comment_list];
       }),
   },

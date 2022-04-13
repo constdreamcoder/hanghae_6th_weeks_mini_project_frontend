@@ -20,21 +20,21 @@ import { actionCreators as postActions } from "../redux/modules/post";
 //추가한 부분 끝
 
 const Main = (props) => {
-    // 추가한 부분
-    const post_list = useSelector((state) => state.post.list);
+  // 추가한 부분
+  // const post_list = useSelector((state) => state.post.list);
 
-    const { history } = props;
+  const { history } = props;
 
-    // 추가한부분 끝
+  // 추가한부분 끝
 
-    return (
-        <React.Fragment>
-            <Wrapper>
-                <BodyContainer>
-                    <Body />
-                </BodyContainer>
-                {/* 추가한 부분 */}
-                <Grid bg="#EFF6FF" padding="40px 0px 0px">
+  return (
+    <React.Fragment>
+      <Wrapper>
+        <BodyContainer>
+          <Body />
+        </BodyContainer>
+        {/* 추가한 부분 */}
+        {/* <Grid bg="#EFF6FF" padding="40px 0px 0px">
                     {post_list.map((post, index) => {
                         return (
                             <Grid
@@ -47,22 +47,22 @@ const Main = (props) => {
                             </Grid>
                         );
                     })}
-                </Grid>
-                {/* 추가한 부분 끝 */}
-                <Footer />
-            </Wrapper>
-            <Button is_float text="+"></Button>
-        </React.Fragment>
-    );
+                </Grid> */}
+        {/* 추가한 부분 끝 */}
+        <Footer />
+      </Wrapper>
+      <Button is_float text="+"></Button>
+    </React.Fragment>
+  );
 };
 
 const Wrapper = styled.div`
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  min-height: 100vh;
 `;
 
 export default Main;
