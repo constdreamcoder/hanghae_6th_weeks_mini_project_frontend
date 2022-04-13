@@ -21,6 +21,7 @@ const PostWrite = (props) => {
         };
     };
     const preview = useSelector((state) => state.image.preview);
+
     //===============================================contents관련
     // 작성하기, 수정하기 클릭 시 전달할 input의 내용
     const [contents, setContents] = React.useState({
@@ -79,7 +80,6 @@ const PostWrite = (props) => {
                     image: data.Location,
                     createdAt: moment().format("YYYY-MM-DD hh:mm:ss"),
                 };
-                console.log(postContents); //서버에 보낼 최종작성내용
                 dispatch(postActions.addPostFB(postContents));
             },
             (error) => {
@@ -90,7 +90,7 @@ const PostWrite = (props) => {
             }
         );
     };
-    //then 테스트
+
     return (
         <React.Fragment>
             <Grid width="50vw" margin="20px auto">

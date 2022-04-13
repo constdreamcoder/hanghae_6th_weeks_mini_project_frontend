@@ -8,7 +8,6 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 
-
 // pages
 import Main from "../pages/Main";
 import PostDetails from "../pages/PostDetails";
@@ -23,23 +22,12 @@ import PostEdit from "../pages/PostEdit";
 
 function App() {
     const dispatch = useDispatch();
-    const post_list = useSelector((state) => state.post.list);
-
     // 페이지 조회할 때마다 실행, token이 유효한지 여부 체크
     React.useEffect(() => {
         if (localStorage.getItem("token")) {
             dispatch(userActions.loginCheckFB());
         }
     });
-
-    React.useEffect(() => {
-        if (post_list.length === 0) {
-            console.log(post_list);
-            dispatch(postActions.getPostFB());
-            console.log("=====조회됐음====");
-        }
-    }, []);
-
     return (
         <div className="App">
             <Head />

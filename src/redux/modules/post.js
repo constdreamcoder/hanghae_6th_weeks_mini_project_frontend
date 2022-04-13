@@ -41,7 +41,6 @@ const addPostFB = (contents = "") => {
         Apis.addPost(postContents)
             .then(function (response) {
                 //response로 postId랑 유저정보 받아오기 가능할듯 https://github.com/robinyeon/ANABADA/blob/yeon/src/redux/modules/card.js 참고
-                console.log(response);
                 const addPostContents = {
                     ...postContents,
                 };
@@ -70,7 +69,6 @@ const getPostFB = () => {
     return function (dispatch, getState, { history }) {
         Apis.roadPostList()
             .then(function (response) {
-                console.log(response);
                 dispatch(setPost(response.data));
             })
             .catch(function (error) {
@@ -109,6 +107,7 @@ export const editPostFB =
                 postId: postId,
             };
             dispatch(editPost(editPostContents));
+            window.alert("수정완료!");
             history.replace(`/detail/${postId}`);
         } catch (error) {
             console.log(error);
@@ -119,8 +118,8 @@ const deletePostFB = (postId) => {
     return function (dispatch, getState, { history }) {
         Apis.deletePost(postId)
             .then(function (response) {
-                console.log(response);
                 dispatch(deletePost(postId));
+                window.alert("삭제완료!");
                 history.replace("/");
             })
             .catch(function (error) {
@@ -164,11 +163,9 @@ export default handleActions(
             }),
         [DELETE_POST]: (state, action) =>
             produce(state, (draft) => {
-                console.log(action.payload.postId);
                 let deleteIndex = draft.list.findIndex(
                     (post) => post.postId === action.payload.postId
                 );
-                console.log(state.post);
             }),
     },
     initialState

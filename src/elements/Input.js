@@ -25,7 +25,7 @@ const Input = (props) => {
                     placeholder={placeholder}
                     onChange={_onChange}
                     name={name}
-                    value={value}
+                    defaultValue={value}
                 ></ElTextarea>
             </Grid>
         );
