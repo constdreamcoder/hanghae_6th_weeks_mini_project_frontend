@@ -70,8 +70,8 @@ const loginFB = (email, password) => {
         console.log(response);
         console.log(response["msg"]);
         localStorage.setItem("token", response.data.token);
-        // history.replace("/");
-        // window.location.reload();
+        history.replace("/");
+        window.location.reload();
       })
       .catch((error) => {
         // console.log(error.toJSON());
