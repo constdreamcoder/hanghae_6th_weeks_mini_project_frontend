@@ -41,10 +41,11 @@ const signupFB = (email, nickname, password, confirmPassword) => {
         alert(response.data.Message);
         history.replace("/login");
       })
-      .catch(function (response) {
+      .catch(function (error) {
         console.log("--singnUpFB api call Fail");
-        console.log(response);
-        alert(response.errorMessage);
+        console.log(error.response);
+        console.log(error.response.data.errorMessage);
+        alert(error.response.data.errorMessage)
       });
   };
 };
@@ -63,17 +64,19 @@ const loginFB = (email, password) => {
           password: password,
         }
       )
+      // success: function (response) { alert(response["msg"]); window.location.reload(); }, error: function (response, status, error) { console.log(response.responseJSON["msg"]); alert(response.responseJSON["msg"]); },
       .then((response) => {
         console.log("--login api call Success");
         console.log(response);
+        console.log(response["msg"]);
         localStorage.setItem("token", response.data.token);
-        alert("로그인 성공!");
-        history.replace("/");
-        window.location.reload();
+        // history.replace("/");
+        // window.location.reload();
       })
       .catch((error) => {
-        console.log("아이디 혹은 비밀번호가 맞지 않습니다." + error.msg);
-        alert("아이디 혹은 비밀번호가 맞지 않습니다." + error.msg);
+        // console.log(error.toJSON());
+        console.log(error.response.data.errorMessage);
+        alert(error.response.data.errorMessage);
       });
   };
 };

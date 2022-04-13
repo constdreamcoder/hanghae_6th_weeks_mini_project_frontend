@@ -14,20 +14,9 @@ const Signup = (props) => {
     const [confirmPassword, setConfirmPassword] = React.useState("");
 
     const signup = () => {
-        if (
-            email === "" ||
-            nickname === "" ||
-            password === "" ||
-            confirmPassword === ""
-        ) {
-            alert("빈칸을 모두 입력하세요.");
-        } else if (password !== confirmPassword) {
-            alert("입력한 비밀번호가 서로 다릅니다.");
-        } else {
-            dispatch(
-                userActions.signupFB(email, nickname, password, confirmPassword)
-            );
-        }
+      dispatch(
+        userActions.signupFB(email, nickname, password, confirmPassword)
+      );
     };
 
     return (
