@@ -14,7 +14,7 @@ const Signup = (props) => {
   const [email, setEmail] = React.useState("");
   const [nickname, setNickname] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("")
+  const [confirmPassword, setConfirmPassword] = React.useState("");
   
   const signup = () => {
     console.log('--Run Sign up')
@@ -77,10 +77,6 @@ const Signup = (props) => {
             }}
             type="password"
           />
-        </Grid>
-        <Grid padding="16px 0px">
-          <Text size="14px">프로필 사진</Text>
-          <PFUpload/>
         </Grid>
         <Grid padding="16px 0px">
           <Button text="회원가입하기" _onClick={signup}></Button>

@@ -30,8 +30,8 @@ const Login = (props) => {
         
         <Grid padding="16px 0px">
           <Input
-            label="아이디"
-            placeholder="아이디를 입력해주세요."
+            label="이메일"
+            placeholder="이메일을 입력해주세요."
             _onChange={(e) => {
               setEmail(e.target.value);
             }}

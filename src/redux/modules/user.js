@@ -24,28 +24,27 @@ const user_initial = {
     user_name: "mean0",
 };
 
-const signupFB = (email, nickname, password, confirmPassword, profile) => {
+const signupFB = (email, nickname, password, confirmPassword) => {
   return function (dispatch, getState, { history }) {
     console.log('--Run signupFB')
 
-    axios.post('http://13.125.254.69/api/signup', // 미리 약속한 주소
+    axios.post('http://52.78.20.222/api/signup', // 미리 약속한 주소
     { // 데이터
         "email": email, 
         "nickname": nickname,
         "password": password,
         "confirmPassword": confirmPassword,
-        "profile": "",
     })
     .then(function (response) {
       console.log('--singnUpFB api call Success');
       console.log(response);
-      alert("회원가입 완료!");
+      alert(response.data.Message);
       history.replace("/login");
     })
-    .catch(function (error) {
+    .catch(function (response) {
       console.log('--singnUpFB api call Fail');
-      console.log(error);
-      // alert(error.errorMessage);
+      console.log(response);
+      alert(response.errorMessage);
     });
   };
 };
@@ -56,10 +55,8 @@ const loginFB = (email, password) => {
     // 로그인 후 인증상태 지속
     console.log('--Run loginFB');
     // console.log(email, password);
-    axios.post('http://13.125.254.69/api/login', // 미리 약속한 주소
+    axios.post('http://52.78.20.222/api/login', // 미리 약속한 주소
       { // 데이터
-        // "email": "eve.holt@reqres.in",
-        // "password": "pistol",
         "email": email, 
         "password": password,
       }
@@ -72,8 +69,8 @@ const loginFB = (email, password) => {
         window.location.reload();
       })
     .catch((error) => {
-      console.log("아이디 혹은 비밀번호가 맞지 않습니다." + error);
-      alert("아이디 혹은 비밀번호가 맞지 않습니다.");
+      console.log("아이디 혹은 비밀번호가 맞지 않습니다." + error.msg);
+      alert("아이디 혹은 비밀번호가 맞지 않습니다." + error.msg);
     });
   };
 };
@@ -83,13 +80,9 @@ const loginCheckFB = () => {
   return function (dispatch, getState, { history }) {
     console.log('--Run loginCheckFB');
     // /islogin 호출
-    axios.post('http://13.125.254.69/api/loginInfo', // 미리 약속한 주소
+    axios.get('http://52.78.20.222/api/islogin', // 미리 약속한 주소
     {
-      // localStorage에 있는 토큰을 get함
-      "token": localStorage.getItem("token")
-    }, 
-    {
-      // headers: { 'Authorization': localStorage.getItem("token") },
+      headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
     }
     ).then(function (response) {
       console.log('--islogin api call Success');
@@ -97,9 +90,9 @@ const loginCheckFB = () => {
       // 응답이 잘 들어왔으면 store에 있는 user라는 state를 dispatch 해주기
       dispatch(
         setUser({
-          email: response.data.userInfo.userInfo.email,
-          nickname: response.data.userInfo.userInfo.nickname,
-          profile: response.data.userInfo.userInfo.profile,
+          email: response.data.user.email,
+          nickname: response.data.user.nickname,
+          profile: response.data.user.profile,
         })
       )
     })
@@ -111,6 +104,8 @@ const loginCheckFB = () => {
     });
   };
 };
+
+
 
 const logoutFB = () => {
   return function (dispatch, getState, { history }) {
