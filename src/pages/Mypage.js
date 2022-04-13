@@ -10,13 +10,11 @@ import Footer from "../components/Footer";
 // style
 import styled from "@emotion/styled";
 
-const Main = (props) => {
+const Mypage = (props) => {
     return (
         <React.Fragment>
             <Wrapper>
-                <BodyContainer>
-                    <Body />
-                </BodyContainer>
+                <BodyContainer></BodyContainer>
                 <Footer />
             </Wrapper>
         </React.Fragment>
@@ -32,4 +30,4 @@ const Wrapper = styled.div`
     min-height: 100vh;
 `;
 
-export default Main;
+export default Mypage;

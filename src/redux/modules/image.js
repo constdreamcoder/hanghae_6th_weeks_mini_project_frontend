@@ -12,16 +12,10 @@ const setPreview = createAction(SET_PREVIEW, (preview) => ({ preview }));
 
 // initial state
 const initialState = {
-  image_url: "",
-  uploading: false,
-  preview: "",
+    image_url: null,
+    uploading: false,
+    preview: null,
 };
-
-const setPreviewFB = () => {
-  
-}
-
-
 
 // reducer
 export default handleActions(

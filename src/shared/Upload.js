@@ -49,12 +49,11 @@ const Upload = (props) => {
 
         promise.then(
             (data) => {
-                console.log(data.Location);
                 dispatch(imageActions.uploadImage(data.Location));
                 // window.alert("이미지 업로드 성공");
-                console.log(uploadImage);
             },
             (error) => {
+                console.log("이미지업로드실패", error);
                 return window.alert("이미지 업로드 실패", error.message);
             }
         );

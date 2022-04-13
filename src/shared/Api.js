@@ -1,15 +1,11 @@
 import axios from "axios";
 
 const Api = axios.create({
-    baseURL: "http://13.125.83.59",
-    //header 뭐지?
+    baseURL: "http://52.78.20.222",
 });
-// 토큰  추가
-// api.interceptors.request.use(function (config) {
-// 	const accessToken = document.cookie.split('=')[1];
-// 	config.headers.common['X-AUTH-TOKEN'] = `${accessToken}`;
-// 	return config;
-// });
+Api.defaults.headers.common["authorization"] = `Bearer ${localStorage.getItem(
+    "token"
+)}`;
 
 export const Apis = {
     // post
@@ -18,6 +14,7 @@ export const Apis = {
     deletePost: (postId) => Api.delete(`api/posts/${postId}`),
     roadPostList: () => Api.get("/api/postList"),
     roadPost: (postId) => Api.get(`/api/posts/${postId}`),
+    roadMypost: () => Api.get("/api/mypage/"),
 
     //comment
 

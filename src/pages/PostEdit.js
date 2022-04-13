@@ -6,27 +6,25 @@ import { Grid, Input, Button, Image } from "../elements/index";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as imageActions } from "../redux/modules/image";
+import { history } from "../redux/configureStore";
 
 const PostEdit = (props) => {
     const dispatch = useDispatch();
-
-    // const is_login = useSelector((state) => state.user.is_login); 로그인 상태 확인
-    // React.useEffect(() => {
-    //     if (is_edit && !for_edit_post) {
-    //         window.alert("새로고침 시 뒤로 돌아갑니다.");
-    //         history.goBack();
-
-    //         return;
-    //     }
-    // }); 새로고침하면 뒤로 돌아가야 하나?
+    React.useEffect(() => {
+        if (params_postId && !edit_post) {
+            window.alert("새로고침 시 뒤로 돌아갑니다.");
+            history.replace("/");
+            window.location.reload();
+            return;
+        }
+        dispatch(imageActions.setPreview(edit_post.image));
+    }, []);
 
     //================================================= 수정할 게시글 추출
     const post_list = useSelector((state) => state.post.list);
     const params_postId = props.match.params.postId;
     const edit_post = post_list.find((post) => post.postId === params_postId);
-    React.useEffect(() => {
-        dispatch(imageActions.setPreview(edit_post.image));
-    }, []);
+
     //=================================================preview관련
     const fileInput = React.useRef();
     const previewFile = (e) => {
@@ -38,13 +36,13 @@ const PostEdit = (props) => {
             dispatch(imageActions.setPreview(reader.result));
         };
     };
-    const preview = useSelector((state) => state.image.preview);
+    const preview = useSelector((state) => state.image?.preview);
     //===============================================contents관련
 
     const [contents, setContents] = React.useState({
-        title: edit_post.title,
-        content: edit_post.content,
-        item: edit_post.item,
+        title: edit_post?.title,
+        content: edit_post?.content,
+        item: edit_post?.item,
     });
     // input에 텍스트 입력 시 contents 로 저장하는 함수
     const changeContents = (e) => {
@@ -81,11 +79,7 @@ const PostEdit = (props) => {
                     createdAt: edit_post.createdAt + "(수정)",
                     //수정이라고 하면 수정한 날짜 같다??
                 };
-                console.log(
-                    "===미들웨어전송할 데이터===",
-                    edit_post.image,
-                    editContents
-                );
+
                 dispatch(
                     postActions.editPostFB(edit_post.postId, editContents)
                 );
@@ -121,11 +115,7 @@ const PostEdit = (props) => {
                         image: data.Location,
                         createdAt: edit_post.createdAt + "(수정)",
                     };
-                    console.log(
-                        "===미들웨어전송할 데이터===",
-                        edit_post.image,
-                        editContents
-                    );
+
                     dispatch(
                         postActions.editPostFB(edit_post.postId, editContents)
                     );
