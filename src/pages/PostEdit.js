@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import AWS from "aws-sdk";
 import moment from "moment";
 
-import { Grid, Input, Button, Image } from "../elements/index";
+import { Grid, Input, Button, Image, Form } from "../elements/index";
 import { useSelector, useDispatch } from "react-redux";
 import post, { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as imageActions } from "../redux/modules/image";
@@ -134,55 +134,57 @@ const PostEdit = (props) => {
     //then 테스트
     return (
         <React.Fragment>
-            <Grid width="50vw" margin="20px auto">
-                <Grid center>
-                    <Image
-                        previewSize="100"
-                        shape="rectangle"
-                        src={
-                            preview
-                                ? preview
-                                : "https://firebasestorage.googleapis.com/v0/b/react-homework1.appspot.com/o/images%2Frefrigerator_text.PNG?alt=media&token=2dd0c2a6-ee24-4929-8692-46160a2cbb84"
-                        }
-                    />
-                </Grid>
-                {/* Input 프롭스에 name, value 추가했습니다. */}
-                <Grid>
+            <Form width="fit-content">
+                <Grid width="50vw" margin="20px auto">
                     <Grid center>
-                        <input
-                            type="file"
-                            ref={fileInput}
-                            onChange={previewFile}
+                        <Image
+                            previewSize="100"
+                            shape="rectangle"
+                            src={
+                                preview
+                                    ? preview
+                                    : "https://firebasestorage.googleapis.com/v0/b/react-homework1.appspot.com/o/images%2Frefrigerator_text.PNG?alt=media&token=2dd0c2a6-ee24-4929-8692-46160a2cbb84"
+                            }
                         />
                     </Grid>
-                    <Input
-                        placeholder={"제목"}
-                        name="title"
-                        value={contents.title}
-                        _onChange={changeContents}
-                    ></Input>
+                    {/* Input 프롭스에 name, value 추가했습니다. */}
+                    <Grid>
+                        <Grid center>
+                            <input
+                                type="file"
+                                ref={fileInput}
+                                onChange={previewFile}
+                            />
+                        </Grid>
+                        <Input
+                            placeholder={"제목"}
+                            name="title"
+                            value={contents.title}
+                            _onChange={changeContents}
+                        ></Input>
+                    </Grid>
+                    <Grid>
+                        <Input
+                            placeholder={"냉장고에 어떤 식재료가 있나요?"}
+                            name="item"
+                            value={contents.item}
+                            _onChange={changeContents}
+                        ></Input>
+                    </Grid>
+                    <Grid>
+                        <Input
+                            placeholder={"어떤 도움을 요청하시겠어요?"}
+                            name="content"
+                            value={contents.content}
+                            _onChange={changeContents}
+                            multiLine
+                        ></Input>
+                    </Grid>
+                    <Grid>
+                        <Button _onClick={editPost} text="게시글 수정"></Button>
+                    </Grid>
                 </Grid>
-                <Grid>
-                    <Input
-                        placeholder={"냉장고에 어떤 식재료가 있나요?"}
-                        name="item"
-                        value={contents.item}
-                        _onChange={changeContents}
-                    ></Input>
-                </Grid>
-                <Grid>
-                    <Input
-                        placeholder={"어떤 도움을 요청하시겠어요?"}
-                        name="content"
-                        value={contents.content}
-                        _onChange={changeContents}
-                        multiLine
-                    ></Input>
-                </Grid>
-                <Grid>
-                    <Button _onClick={editPost} text="게시글 수정"></Button>
-                </Grid>
-            </Grid>
+            </Form>
         </React.Fragment>
     );
 };

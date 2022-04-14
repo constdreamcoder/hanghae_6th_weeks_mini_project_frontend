@@ -1,4 +1,6 @@
 import React from "react";
+import styled from "styled-components";
+
 
 import { BrowserRouter, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
@@ -12,6 +14,8 @@ import { actionCreators as commentActions } from "../redux/modules/comment";
 import Main from "../pages/Main";
 import PostDetails from "../pages/PostDetails";
 import Head from "../components/Head";
+import Footer from "../components/Footer";
+
 
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
@@ -31,16 +35,23 @@ function App() {
     return (
         <div className="App">
             <Head />
-            <ConnectedRouter history={history}>
-                <Route path="/" exact component={Main} />
-                <Route path="/detail/:postId" exact component={PostDetails} />
-                <Route path="/login" exact component={Login} />
-                <Route path="/signup" exact component={Signup} />
-                <Route path="/write" exact component={PostWrite} />
-                <Route path="/write/:postId" exact component={PostEdit} />
-            </ConnectedRouter>
+            <Continaer>
+                <ConnectedRouter history={history}>
+                    <Route path="/" exact component={Main} />
+                    <Route path="/detail/:postId" exact component={PostDetails} />
+                    <Route path="/login" exact component={Login} />
+                    <Route path="/signup" exact component={Signup} />
+                    <Route path="/write" exact component={PostWrite} />
+                    <Route path="/write/:postId" exact component={PostEdit} />
+                </ConnectedRouter>
+            </Continaer>
+            <Footer />
         </div>
     );
 }
+
+const Continaer = styled.div`
+    background-color: white;
+`;
 
 export default App;

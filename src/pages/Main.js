@@ -17,13 +17,14 @@ import Permit from "../shared/Permit";
 const Main = (props) => {
     const { history } = props;
 
+    // 추가한부분 끝
+
     return (
         <React.Fragment>
             <Wrapper>
                 <BodyContainer>
                     <Body />
                 </BodyContainer>
-                <Footer />
             </Wrapper>
             <Permit>
                 <Button
@@ -39,7 +40,7 @@ const Main = (props) => {
 };
 
 const Wrapper = styled.div`
-    width: 100vw;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: start;

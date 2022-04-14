@@ -19,6 +19,7 @@ const initialPost = {
     item: "",
     image: "",
     createdAt: "",
+    nickname: "",
 };
 // middlewares
 const addPostFB = (contents = "") => {
@@ -49,9 +50,12 @@ const getPostFB = () => {
 
                 let post_list = response.data.postList.map((post) => {
                     let keys = Object.keys(initialPost);
+                    console.log(keys);
 
                     let _post = keys.reduce(
                         (acc, cur) => {
+                            console.log(acc);
+                            console.log(cur);
                             return { ...acc, [cur]: post[cur] };
                         },
                         { postId: post._id }

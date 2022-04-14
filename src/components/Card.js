@@ -8,43 +8,28 @@ import styled from "styled-components";
 
 const Card = (props) => {
   // console.log(props);
-  const { postId, title, content, item, image, createdAt, _onClick } = props; // 닉네임, 프로필 사진, 아마 댓글도??
+  const { postId, title, content, item, image, createdAt, _onClick, nickname } = props; // 닉네임, 프로필 사진, 아마 댓글도??
   return (
     <React.Fragment>
-      <CardContainer>
+      <CardContainer onClick={_onClick}>
         <CardBox>
           <Grid height="auto" width="auto">
-            <Image src={image} shape="rectangle" />
-            <CardCover className="cover" onClick={_onClick}>
+            <Image backgroundSize="cover" src={image} shape="rectangle" />
+            <CardCover className="cover">
               <CardCover>바로가기</CardCover>
             </CardCover>
           </Grid>
 
-          <Grid height="auto" is_flex width="auto" margin="7px 10px">
-            <Image display="inline-block" margin="0" />
-            <Text margin="0px 70px 0px 0px" bold>
-              닉네임
+          <Grid height="auto" width="auto" margin="32px" center="center">
+            <Text bold display="block" margin="0">
+              {nickname}
             </Text>
-            <Text margin="0px 0px 0px 60px">댓글 10개</Text>
-            <Text margin="0px 5px 0px 0px" size="1.75rem" color="red">
-              ❤
-            </Text>
-          </Grid>
-          <Grid margin="0px 10px" height="25%" width="auto" position="relative">
-            <Text margin="7px 5px" bold size="1.5rem">
+            <Text wordWarp bold size="1.5rem" display="block">
               {title}
             </Text>
-            <Text margin="5px 0px" position="absolute">
-              {item}
+            <Text wordWarp display="block" color="rgba(0,0,0,0.7)">
+              식재료: {item}
             </Text>
-          </Grid>
-          <Grid height="auto" is_flex width="auto" margin="10px 10px">
-            <Button text="수정"></Button>
-            <Grid>
-              <Text></Text>
-            </Grid>
-            <Button text="삭제"></Button>
-            {/* <Button>바로가기</Button> */}
           </Grid>
         </CardBox>
 
@@ -59,22 +44,20 @@ Card.defaultProps = {
 };
 
 const CardContainer = styled.div`
+  background-color: white;
   width: 350px;
-  height: 500px;
-  border-radius: 20px;
+  height: 540px;
+  border-radius: 16px;
   position: relative;
 
-  // border: 1px solid black;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+
   &:hover {
     transform: perspective(150px) translateZ(5px);
-    box-shadow: -4px -4px 20px rgba(0, 0, 0, 0.505);
-  }
-
-  &:hover .cover {
-    opacity: 0.4;
-    display: block;
+    box-shadow: -4px 8px 20px rgba(0, 0, 0, 0.505);
+    cursor: pointer;
   }
 `;
 

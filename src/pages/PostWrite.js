@@ -1,11 +1,10 @@
 import React from "react";
 import AWS from "aws-sdk";
 import moment from "moment";
-import { Grid, Input, Button, Image } from "../elements/index";
+import { Grid, Input, Button, Image, Form } from "../elements/index";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as imageActions } from "../redux/modules/image";
-
 const PostWrite = (props) => {
     const dispatch = useDispatch();
     //=================================================preview관련
@@ -29,7 +28,6 @@ const PostWrite = (props) => {
     // input에 텍스트 입력 시 contents 로 저장하는 함수
     const changeContents = (e) => {
         const { name, value } = e.target;
-        console.log(e.target);
         setContents({ ...contents, [name]: value });
     };
     //===============================================addPost관련
@@ -85,62 +83,57 @@ const PostWrite = (props) => {
     };
     return (
         <React.Fragment>
-            <Grid width="70vw" margin="150px auto" is_flex>
-                <Grid center margin="20px">
-                    <Image
-                        previewSize="100"
-                        shape="rectangle"
-                        src={
-                            preview
-                                ? preview
-                                : "https://firebasestorage.googleapis.com/v0/b/react-homework1.appspot.com/o/images%2Frefrigerator_text.PNG?alt=media&token=2dd0c2a6-ee24-4929-8692-46160a2cbb84"
-                        }
-                    />
-                    <input type="file" ref={fileInput} onChange={previewFile} />
-                </Grid>
-                <Grid heght="100px" margin="20px">
-                    <Grid width="90%" margin="auto">
-                        <Grid>
-                            <Input
-                                placeholder={"제목"}
-                                name="title"
-                                value={contents.title}
-                                _onChange={changeContents}
-                                border={"2px solid #26C281"}
-                                margin={"10px 0 0 0"}
-                            ></Input>
+            <Form width="fit-content">
+                <Grid width="50vw" margin="20px auto">
+                    <Grid center>
+                        <Image
+                            previewSize="100"
+                            shape="rectangle"
+                            src={
+                                preview
+                                    ? preview
+                                    : "https://firebasestorage.googleapis.com/v0/b/react-homework1.appspot.com/o/images%2Frefrigerator_text.PNG?alt=media&token=2dd0c2a6-ee24-4929-8692-46160a2cbb84"
+                            }
+                        />
+                    </Grid>
+                    {/* Input 프롭스에 name, value 추가했습니다. */}
+                    <Grid>
+                        <Grid center>
+                            <input
+                                type="file"
+                                ref={fileInput}
+                                onChange={previewFile}
+                            />
                         </Grid>
-                        <Grid>
-                            <Input
-                                placeholder={"냉장고에 어떤 식재료가 있나요?"}
-                                name="item"
-                                value={contents.item}
-                                _onChange={changeContents}
-                                border={"2px solid #26C281"}
-                                margin={"10px 0 0 0"}
-                            ></Input>
-                        </Grid>
-                        <Grid>
-                            <Input
-                                placeholder={"어떤 도움을 요청하시겠어요?"}
-                                name="content"
-                                value={contents.content}
-                                _onChange={changeContents}
-                                multiLine
-                                border={"2px solid #26C281"}
-                                margin={"10px 0 0 0"}
-                            ></Input>
-                        </Grid>
-                        <Grid>
-                            <Button
-                                _onClick={addPost}
-                                text="게시글 작성"
-                                margin={"10px 0 0 0"}
-                            ></Button>
-                        </Grid>
+                        <Input
+                            placeholder={"제목"}
+                            name="title"
+                            value={contents.title}
+                            _onChange={changeContents}
+                        ></Input>
+                    </Grid>
+                    <Grid>
+                        <Input
+                            placeholder={"냉장고에 어떤 식재료가 있나요?"}
+                            name="item"
+                            value={contents.item}
+                            _onChange={changeContents}
+                        ></Input>
+                    </Grid>
+                    <Grid>
+                        <Input
+                            placeholder={"어떤 도움을 요청하시겠어요?"}
+                            name="content"
+                            value={contents.content}
+                            _onChange={changeContents}
+                            multiLine
+                        ></Input>
+                    </Grid>
+                    <Grid>
+                        <Button _onClick={addPost} text="게시글 작성"></Button>
                     </Grid>
                 </Grid>
-            </Grid>
+            </Form>
         </React.Fragment>
     );
 };

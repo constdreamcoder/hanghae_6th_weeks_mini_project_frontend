@@ -52,16 +52,17 @@ const CardList = (props) => {
 
 const CardWarapper = styled.div`
     // border: 1px solid red;
+    padding: 80px 0;
 `;
 
 const CardGrid = styled.div`
-    // border: 1px solid green;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 60px;
-    @media screen and (max-width: 718px) {
-        gap: 3px;
+    grid-template-columns: auto auto auto;
+    gap: 48px;
+    @media screen and (max-width: 1200px) {
+        gap: 32px;
+        grid-template-columns: auto;
     }
 `;
 export default CardList;

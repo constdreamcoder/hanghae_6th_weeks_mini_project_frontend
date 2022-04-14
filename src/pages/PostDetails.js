@@ -19,10 +19,10 @@ const PostDetails = (props) => {
     const params_postId = props.match.params.postId;
     const post_list = useSelector((state) => state.post.list);
     const this_post = post_list.find((post) => post.postId === params_postId);
-    const user_info = useSelector((state) => state.user);
-    console.log(this_post);
+    const userInfo = useSelector((state) => state.user.user);
+    const is_login = useSelector((state) => state.user.is_login);
 
-    // React.useEffect
+    console.log(userInfo);
 
     const deletePost = () => {
         dispatch(postActions.deletePostFB(this_post.postId));
@@ -31,49 +31,54 @@ const PostDetails = (props) => {
     return (
         <React.Fragment>
             <BodyContainer>
-                <Grid center="center">
-                    {user_info.is_login && (
-                        <Grid>
-                            <button
-                                onClick={() =>
-                                    history.push(`/write/${this_post.postId}`)
-                                }
-                            >
-                                수정하기
-                            </button>
-                            <button onClick={deletePost}>삭제하기</button>
-                        </Grid>
-                    )}
-                    <Text size="60px" bold>
-                        {this_post.title}
-                    </Text>
-                </Grid>
-                <Grid is_flex>
-                    <Grid is_flex width="auto">
-                        <Image margin="0px 10px 0px 0px" shape="circle" />
-                        <span>닉네임</span>
+                <Grid>
+                    <Grid width="auto" center="center" margin="0 0 48px">
+                        <Text bold display="block">
+                            {this_post.nickname}
+                        </Text>
+                        <Text size="60px" bold>
+                            {this_post.title}
+                        </Text>
+                        <Text display="block" color="rgba(0,0,0,0.7)">
+                            식재료: {this_post.item}
+                        </Text>
+                        <Text display="block" color="rgba(0,0,0,0.4)">
+                            {this_post.createdAt}
+                        </Text>
                     </Grid>
-                    <span>{this_post.createdAt}</span>
                 </Grid>
                 <Image
                     paddingTop="40%"
                     shape="rectangle"
                     src={this_post.image}
+                    backgroundSize="contain"
                 />
-                <Grid padding="60px">
-                    <Input
-                        multiLine
-                        label="식재료 목록"
-                        placeholder="식재료를 입력해주세요!!"
-                        value={this_post.item}
-                    ></Input>
-                    <Input
-                        multiLine
-                        label="코멘트"
-                        placeholder="코멘트를 입력해주세요!!"
-                        value={this_post.content}
-                    ></Input>
+                <Grid padding="60px" center="center">
+                    <Text display="block">{this_post.content}</Text>
                 </Grid>
+                {is_login ? (
+                    this_post.nickname === userInfo.nickname ? (
+                        <Grid center="center">
+                            <Button
+                                width="64px"
+                                margin="0 8px 0"
+                                display="inline"
+                                onClick={() =>
+                                    history.push(`/write/${this_post.postId}`)
+                                }
+                            >
+                                수정하기
+                            </Button>
+                            <Button
+                                width="64px"
+                                display="inline"
+                                onClick={deletePost}
+                            >
+                                삭제하기
+                            </Button>
+                        </Grid>
+                    ) : null
+                ) : null}
                 <CommentList postId={this_post.postId} />
             </BodyContainer>
 

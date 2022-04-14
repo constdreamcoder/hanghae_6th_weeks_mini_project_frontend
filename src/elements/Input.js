@@ -20,7 +20,13 @@ const Input = (props) => {
     if (multiLine) {
         return (
             <Grid>
-                {label && <Text margin="0px">{label}</Text>}
+                <Grid padding="0 0 4px 0">
+                    {label && (
+                        <Text margin="0px" color="rgba(0,0,0,0.6)">
+                            {label}
+                        </Text>
+                    )}
+                </Grid>
                 <ElTextarea
                     rows="5"
                     type={type}
@@ -38,7 +44,13 @@ const Input = (props) => {
     return (
         <React.Fragment>
             <Grid>
-                {label && <Text margin="0px">{label}</Text>}
+                <Grid padding="0 0 4px 0">
+                    {label && (
+                        <Text margin="0" color="rgba(0,0,0,0.6)">
+                            {label}
+                        </Text>
+                    )}
+                </Grid>
                 <ElInput
                     rows="10"
                     type={type}
@@ -69,20 +81,32 @@ Input.defaultProps = {
 };
 
 const ElTextarea = styled.textarea`
-    border: ${(props) => props.border};
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
     width: 100%;
-    padding: 12px 4px;
+    padding: 12px 8px;
     box-sizing: border-box;
     margin: ${(props) => props.margin}; // new
+    ::placeholder {
+        color: rgba(0, 0, 0, 0.3);
+    }
+    &:focus-visible {
+        outline-color: rgb(38, 194, 129);
+    }
 `;
 
 const ElInput = styled.input`
-    border: ${(props) => props.border};
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
     width: 100%;
-    padding: 12px 4px;
+    padding: 12px 8px;
     box-sizing: border-box;
-    margin: ${(props) => props.margin};
-    width: ${(props) => props.width};
+    ::placeholder {
+        color: rgba(0, 0, 0, 0.3);
+    }
+    &:focus-visible {
+        outline-color: rgb(38, 194, 129);
+    }
 `;
 
 export default Input;

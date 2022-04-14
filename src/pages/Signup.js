@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Text, Input, Button, Image } from "../elements";
+import { Grid, Text, Input, Button, Image, Form } from "../elements";
 import axios from "axios";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -27,15 +27,18 @@ const Signup = (props) => {
 
     return (
         <React.Fragment>
+          <Form>
             <Grid padding="16px">
-                <Text size="32px" bold>
-                    회원가입
-                </Text>
+                <Grid padding="0 0 20px 0" center="center">
+                  <Text size="32px" bold>
+                      회원가입
+                  </Text>
+                </Grid>
 
                 <Grid padding="16px 0px">
                     <Input
                         label="이메일"
-                        placeholder="이메일 주소를 입력해주세요."
+                        placeholder="naengjango@gmail.com"
                         _onChange={(e) => {
                             setEmail(e.target.value);
                         }}
@@ -45,7 +48,7 @@ const Signup = (props) => {
                 <Grid padding="16px 0px">
                     <Input
                         label="닉네임"
-                        placeholder="닉네임을 입력해주세요."
+                        placeholder="3글자 이상의 알파벳과 숫자"
                         _onChange={(e) => {
                             setNickname(e.target.value);
                         }}
@@ -55,7 +58,7 @@ const Signup = (props) => {
                 <Grid padding="16px 0px">
                     <Input
                         label="비밀번호"
-                        placeholder="비밀번호를 입력해주세요."
+                        placeholder="4글자 이상"
                         _onChange={(e) => {
                             setPassword(e.target.value);
                         }}
@@ -66,7 +69,7 @@ const Signup = (props) => {
         <Grid padding="16px 0px">
           <Input
             label="비밀번호 확인"
-            placeholder="비밀번호를 다시 입력해주세요."
+            placeholder="비밀번호 재입력"
             _onChange={(e) => {
               setConfirmPassword(e.target.value);
             }}
@@ -77,6 +80,7 @@ const Signup = (props) => {
           <Button text="회원가입하기" _onClick={signup}></Button>
         </Grid>
       </Grid>
+      </Form>
     </React.Fragment>
   );
 };

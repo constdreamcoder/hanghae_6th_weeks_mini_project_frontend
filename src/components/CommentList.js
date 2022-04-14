@@ -115,27 +115,29 @@ const CommentItem = (props) => {
     return (
         <Grid is_flex>
             <Grid is_flex width="auto">
-                {/* 프로필 삭제 예정 */}
-                {/* <Image src="" shape="circle"></Image> */}
                 <Text margin="0px 10px" bold>
                     {nickname}
                 </Text>
             </Grid>
             <Grid is_flex margin="0px 4px">
-                <Text margin="0px 5px">{comment}</Text>
-                <Grid margin="0px 0px 0px 50%" width="15%" is_flex>
+                <Grid margin="0px 0px 0px 12px" width="60%" is_flex>
+                    <Text margin="0px 5px">{comment}</Text>
+                </Grid>
+                <Grid margin="0px 0px 0px 12px" width="25%" is_flex>
+                    <Text margin="0px">{createdAt}</Text>
+                </Grid>
+                <Grid margin="0px 0px 0px 12px" width="15%" is_flex>
                     <Button
-                        margin="0px 15% 0px 0px"
-                        bg="#2196f3"
+                        bg="white"
+                        color="rgba(0,0,0,0.8)"
                         _onClick={editComment}
                     >
                         수정
                     </Button>
-                    <Button bg="#2196f3" _onClick={deleteComment}>
+                    <Button bg="white" color="#ff1b3b" _onClick={deleteComment}>
                         삭제
                     </Button>
                 </Grid>
-                <Text margin="0px">{createdAt}</Text>
             </Grid>
         </Grid>
     );
