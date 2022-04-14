@@ -2,7 +2,9 @@ import React from "react";
 
 // components
 import Card from "./Card";
-// import { Grid, Button } from "../elements";
+import { Grid, Button } from "../elements";
+import CustomMenu from "./CustomMenu";
+import Permit from "../shared/Permit";
 
 // style
 import styled from "styled-components";
@@ -19,27 +21,17 @@ const CardList = (props) => {
     const moveToDetails = (postId) => {
         history.push(`/detail/${postId}`);
     };
-    //my list
-    // const [count, setCount] = React.useState(0);
-    // console.log(count);
 
-    // const selectCategory = () => {
-    //     setCount(count + 1);
-    // };
-    //my list 끝
     React.useEffect(() => {
-        // if (count % 2 === 1) {
-        //     dispatch(postActions.setMypostFB());
-        // } else {
         dispatch(postActions.getPostFB());
     }, []);
 
     return (
         <React.Fragment>
             <CardWarapper>
-                {/* <Grid margin="50px" width="100px">
-                    <Button _onClick={selectCategory}>my</Button>
-                </Grid> 마이페이지 관련 */}
+                <Permit>
+                    <CustomMenu />
+                </Permit>
                 <CardGrid>
                     {post_list.map((post, idx) => {
                         return (

@@ -14,6 +14,7 @@ const Grid = (props) => {
         zIndex,
         height, // new
         _onClick, //추가했습니다.
+        border,
     } = props;
 
     // children이라는 변수는 의미적으로 style과 관련이 없는 변수이기 때문에
@@ -28,6 +29,7 @@ const Grid = (props) => {
         position: position, //new
         zIndex: zIndex,
         height, // new
+        border: border,
     };
     return (
         <React.Fragment>
@@ -49,6 +51,7 @@ Grid.defaultProps = {
     position: "", // new
     zIndex: "", // new
     height: "100%", //new
+    border: false,
     onClick: () => {}, // 추가했습니다.
 };
 
@@ -56,17 +59,18 @@ const GridBox = styled.div`
     width: ${(props) => props.width};
     height: ${(props) => props.height};
     box-sizing: border-box;
-    ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
+    padding: ${(props) => props.padding};
     ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
-  ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
+    ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
   ${(props) =>
         props.is_flex
             ? `display: flex; align-items: center; justify-content: space-between`
             : ""}
   ${(props) => (props.center ? `text-align: center` : "")};
-  position: ${(props) => props.position};
-  z-index: ${(props) => props.zIndex};
-  overflow: hidden;
+    position: ${(props) => props.position};
+    z-index: ${(props) => props.zIndex};
+    overflow: hidden;
+    border: ${(props) => props.border}; //추가했습니다.
 `;
 
 export default Grid;

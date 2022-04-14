@@ -4,7 +4,7 @@ import moment from "moment";
 
 import { Grid, Input, Button, Image, Form } from "../elements/index";
 import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as postActions } from "../redux/modules/post";
+import post, { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as imageActions } from "../redux/modules/image";
 import { history } from "../redux/configureStore";
 
@@ -76,7 +76,9 @@ const PostEdit = (props) => {
                 const editContents = {
                     ...contents,
                     image: edit_post.image,
-                    createdAt: edit_post.createdAt + "(수정)",
+                    createdAt: edit_post.createdAt.includes("수정")
+                        ? edit_post.createdAt
+                        : edit_post.createdAt + "(수정)",
                     //수정이라고 하면 수정한 날짜 같다??
                 };
 
@@ -115,7 +117,7 @@ const PostEdit = (props) => {
                         image: data.Location,
                         createdAt: edit_post.createdAt + "(수정)",
                     };
-
+                    console.log("수정시작(글, 사진)");
                     dispatch(
                         postActions.editPostFB(edit_post.postId, editContents)
                     );
