@@ -13,6 +13,7 @@ const Input = (props) => {
         name,
         margin,
         value,
+        border,
     } = props;
 
     if (multiLine) {
@@ -20,12 +21,14 @@ const Input = (props) => {
             <Grid>
                 {label && <Text margin="0px">{label}</Text>}
                 <ElTextarea
-                    rows="10"
+                    rows="5"
                     type={type}
                     placeholder={placeholder}
                     onChange={_onChange}
                     name={name}
+                    margin={margin}
                     defaultValue={value}
+                    border={border}
                 ></ElTextarea>
             </Grid>
         );
@@ -43,6 +46,7 @@ const Input = (props) => {
                     name={name}
                     margin={margin}
                     defaultValue={value}
+                    border={border}
                 />
             </Grid>
         </React.Fragment>
@@ -58,22 +62,23 @@ Input.defaultProps = {
     name: "",
     value: "",
     margin: "", // new
+    border: "1px solid #212121",
 };
 
 const ElTextarea = styled.textarea`
-    border: 1px solid #212121;
+    border: ${(props) => props.border};
     width: 100%;
     padding: 12px 4px;
     box-sizing: border-box;
-    margin=${(props) => props.margin}; // new
-
+    margin: ${(props) => props.margin}; // new
 `;
 
 const ElInput = styled.input`
-    border: 1px solid #212121;
+    border: ${(props) => props.border};
     width: 100%;
     padding: 12px 4px;
     box-sizing: border-box;
+    margin: ${(props) => props.margin};
 `;
 
 export default Input;

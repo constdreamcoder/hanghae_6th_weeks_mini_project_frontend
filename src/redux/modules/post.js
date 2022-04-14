@@ -11,80 +11,80 @@ const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (post) => ({ post }));
 //initialState
 const initialState = {
-  list: [],
+    list: [],
 };
 const initialPost = {
-  title: "",
-  content: "",
-  item: "",
-  image: "",
-  createdAt: "",
+    title: "",
+    content: "",
+    item: "",
+    image: "",
+    createdAt: "",
 };
 // middlewares
 const addPostFB = (contents = "") => {
-  return function (dispatch, getState, { history }) {
-    const postContents = {
-      ...initialPost,
-      ...contents,
-    };
-    Apis.addPost(postContents)
-      .then(function (response) {
-        const addPostContents = {
-          ...postContents,
+    return function (dispatch, getState, { history }) {
+        const postContents = {
+            ...initialPost,
+            ...contents,
         };
-        dispatch(addPost(addPostContents));
-        window.alert("게시물이 작성되었습니다!");
-        history.replace("/");
-      })
-      .catch(function (error) {
-        console.log("addPostFB에러", error);
-      });
-  };
+        Apis.addPost(postContents)
+            .then(function (response) {
+                const addPostContents = {
+                    ...postContents,
+                };
+                dispatch(addPost(addPostContents));
+                window.alert("게시물이 작성되었습니다!");
+                history.replace("/");
+            })
+            .catch(function (error) {
+                console.log("addPostFB에러", error);
+            });
+    };
 };
 const getPostFB = () => {
-  return function (dispatch, getState, { history }) {
-    Apis.roadPostList()
-      .then(function (response) {
-        console.log(response);
+    return function (dispatch, getState, { history }) {
+        Apis.roadPostList()
+            .then(function (response) {
+                console.log("=====포스트리스트", response.data);
 
-        let post_list = response.data.postList.map((post) => {
-          let keys = Object.keys(initialPost);
+                let post_list = response.data.postList.map((post) => {
+                    let keys = Object.keys(initialPost);
 
-          let _post = keys.reduce(
-            (acc, cur) => {
-              return { ...acc, [cur]: post[cur] };
-            },
-            { postId: post._id }
-          );
+                    let _post = keys.reduce(
+                        (acc, cur) => {
+                            return { ...acc, [cur]: post[cur] };
+                        },
+                        { postId: post._id }
+                    );
 
-          return _post;
-        });
+                    return _post;
+                });
 
-        console.log(post_list);
-        dispatch(setPost(post_list));
-      })
-      .catch(function (error) {
-        console.log("getPostFB에러", error);
-      });
-  };
+                console.log(post_list);
+                dispatch(setPost(post_list));
+            })
+            .catch(function (error) {
+                console.log("getPostFB에러", error);
+            });
+    };
 };
 const editPostFB = (postId, editContents) => {
-  return function (dispatch, getState, { history }) {
-    console.log(postId, editContents);
-    Apis.editPost(postId, editContents)
-      .then(function (response) {
-        const editPostContents = {
-          ...editContents,
-          postId: postId,
-        };
-        dispatch(editPost(editPostContents));
-        window.alert("수정완료!");
-        history.goBack(); //(`/detail/${postId}`);
-      })
-      .catch(function (error) {
-        console.log("editPostFB에러", error);
-      });
-  };
+    return function (dispatch, getState, { history }) {
+        console.log(postId, editContents);
+        Apis.editPost(postId, editContents)
+            .then(function (response) {
+                const editPostContents = {
+                    ...editContents,
+                    postId: postId,
+                };
+                dispatch(editPost(editPostContents));
+                window.alert("수정완료!");
+                history.goBack(); //(`/detail/${postId}`);
+            })
+            .catch(function (error) {
+                console.log("editPostFB에러", error);
+            });
+    };
 };
 // export const editPostFB =
 //     (postId, editContents) =>
@@ -103,64 +103,64 @@ const editPostFB = (postId, editContents) => {
 //         }
 //     };
 const deletePostFB = (postId) => {
-  return function (dispatch, getState, { history }) {
-    Apis.deletePost(postId)
-      .then(function (response) {
-        console.log(response.data);
-        window.alert("삭제완료!");
-        history.replace("/");
-      })
-      .catch(function (error) {
-        console.log("editPostFB에러", error);
-      });
-  };
+    return function (dispatch, getState, { history }) {
+        Apis.deletePost(postId)
+            .then(function (response) {
+                console.log(response.data);
+                window.alert("삭제완료!");
+                history.replace("/");
+            })
+            .catch(function (error) {
+                console.log("editPostFB에러", error.response.data.errorMessage);
+            });
+    };
 };
-// const setMypostFB = (postId) => {
-//     return function (dispatch, getState, { history }) {
-//         Apis.roadMypost()
-//             .then(function (response) {
-//                 console.log(response);
-//                 // dispatch(setPost(response.data));
-//             })
-//             .catch(function (error) {
-//                 console.log("setMypostFB에러", error);
-//             });
-//     };
-// };
+const setMypostFB = () => {
+    return function (dispatch, getState, { history }) {
+        Apis.roadMypost()
+            .then(function (response) {
+                console.log("=====마이포스트리스트", response.data);
+                // dispatch(setPost(response.data));
+            })
+            .catch(function (error) {
+                console.log("setMypostFB에러", error.response);
+            });
+    };
+};
 // reducer
 export default handleActions(
-  {
-    [SET_POST]: (state, action) =>
-      produce(state, (draft) => {
-        // draft.list = action.payload.post_list.postList;
-        draft.list = action.payload.post_list;
-      }),
-    [ADD_POST]: (state, action) =>
-      produce(state, (draft) => {
-        draft.list.unshift(action.payload.post);
-      }),
-    [EDIT_POST]: (state, action) =>
-      produce(state, (draft) => {
-        let editIndex = draft.list.findIndex(
-          (post) => post.postId === action.payload.post.postId
-        );
-        draft.list[editIndex] = {
-          ...draft.list[editIndex],
-          ...action.payload.post,
-        };
-      }),
-  },
-  initialState
+    {
+        [SET_POST]: (state, action) =>
+            produce(state, (draft) => {
+                // draft.list = action.payload.post_list.postList;
+                draft.list = action.payload.post_list;
+            }),
+        [ADD_POST]: (state, action) =>
+            produce(state, (draft) => {
+                draft.list.unshift(action.payload.post);
+            }),
+        [EDIT_POST]: (state, action) =>
+            produce(state, (draft) => {
+                let editIndex = draft.list.findIndex(
+                    (post) => post.postId === action.payload.post.postId
+                );
+                draft.list[editIndex] = {
+                    ...draft.list[editIndex],
+                    ...action.payload.post,
+                };
+            }),
+    },
+    initialState
 );
 //export
 const actionCreators = {
-  setPost,
-  addPost,
-  editPost,
-  getPostFB,
-  addPostFB,
-  editPostFB,
-  deletePostFB,
-  // setMypostFB,
+    setPost,
+    addPost,
+    editPost,
+    getPostFB,
+    addPostFB,
+    editPostFB,
+    deletePostFB,
+    setMypostFB,
 };
 export { actionCreators };

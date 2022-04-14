@@ -61,7 +61,7 @@ const ElButton = styled.button`
     padding: ${(props) => props.padding};
     box-sizing: border-box;
     border: none;
-    margin: none;
+    // margin: none;
     ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
     cursor: pointer; // new
     border-radius: 8px;

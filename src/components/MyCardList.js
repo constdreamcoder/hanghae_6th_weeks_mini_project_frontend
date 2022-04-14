@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { history } from "../redux/configureStore";
 
-const CardList = (props) => {
+const MyCardList = (props) => {
     const dispatch = useDispatch();
     const post_list = useSelector((state) => state.post.list);
 
@@ -38,7 +38,6 @@ const CardList = (props) => {
     return (
         <React.Fragment>
             <CardWarapper>
-                <button onClick={selectCategory}>테스트</button>
                 <CardGrid>
                     {post_list.map((post, idx) => {
                         return (
@@ -71,4 +70,4 @@ const CardGrid = styled.div`
         gap: 3px;
     }
 `;
-export default CardList;
+export default MyCardList;
