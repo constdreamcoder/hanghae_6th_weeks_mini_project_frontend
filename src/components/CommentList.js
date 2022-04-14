@@ -16,25 +16,20 @@ const CommentList = (props) => {
     const { postId } = props;
     const dispatch = useDispatch();
     const is_login = useSelector((state) => state.user.is_login);
-    console.log(is_login);
 
   const login_email = useSelector((state) => state.user.user?.email);
   const login_nickname = useSelector((state) => state.user.user?.nickname);
-  console.log(login_email, login_nickname);
 
   const comment_list = useSelector((state) => state.comment.list);
-  console.log(comment_list);
 
   // 로그인한 계정의 댓글 개수
   const login_comments_count = comment_list.filter(
     (comment) =>
       login_email === comment.email && login_nickname === comment.nickname
   ).length;
-  console.log(login_comments_count);
 
   // 전체 댓글 개수
   let comments_count = comment_list.length;
-  console.log(comments_count);
 
   const [comment, setComment] = React.useState("");
   const [clickedCommentId, setclickedCommentId] = React.useState("");

@@ -45,7 +45,6 @@ const PostEdit = (props) => {
     };
     //===============================================editPost관련
     const editPost = () => {
-        console.log(contents.title);
         if (
             contents.title === "" ||
             contents.content === "" ||
@@ -109,7 +108,6 @@ const PostEdit = (props) => {
                             ? edit_post.createdAt
                             : edit_post.createdAt + "(수정)",
                     };
-                    console.log("수정시작(글, 사진)");
                     dispatch(
                         postActions.editPostFB(edit_post.postId, editContents)
                     );

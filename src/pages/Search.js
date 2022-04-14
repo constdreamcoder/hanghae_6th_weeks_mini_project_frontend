@@ -3,8 +3,6 @@ import { Grid, Button, Input } from "../elements";
 
 const Search = (props) => {
     const [count, setCount] = React.useState(0);
-    console.log(count);
-    console.log(props);
 
     const selectCategory = () => {
         setCount(count + 1);
@@ -12,7 +10,6 @@ const Search = (props) => {
 
     React.useEffect(() => {
         if (count % 2 === 1) {
-            console.log("my");
         }
     }, [count]);
 

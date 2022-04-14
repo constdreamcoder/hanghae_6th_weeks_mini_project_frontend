@@ -15,12 +15,10 @@ const Signup = (props) => {
 
 
     const signup = () => {
-      console.log('--Run Sign up')
       if (password !== confirmPassword) {
         alert("입력한 비밀번호가 서로 다릅니다.");;
       }
       else {
-        console.log(email, nickname, password);
         dispatch(userActions.signupFB(email, nickname, password, confirmPassword));
       }
     }

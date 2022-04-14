@@ -22,8 +22,6 @@ const PostDetails = (props) => {
     const userInfo = useSelector((state) => state.user.user);
     const is_login = useSelector((state) => state.user.is_login);
 
-    console.log(this_post);
-
     const deletePost = () => {
         dispatch(postActions.deletePostFB(this_post.postId));
     };

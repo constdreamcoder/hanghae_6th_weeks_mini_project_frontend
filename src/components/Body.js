@@ -7,8 +7,6 @@ import styled from "@emotion/styled";
 import CardList from "./CardList";
 
 const Body = (props) => {
-    console.log(props);
-
     return (
         <React.Fragment>
             <CardList/>

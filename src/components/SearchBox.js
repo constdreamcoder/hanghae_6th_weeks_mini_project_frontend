@@ -6,7 +6,6 @@ import { Input, Button, Grid } from "../elements";
 const SearchBox = (props) => {
     const dispatch = useDispatch();
     const [item, setItem] = React.useState("");
-    console.log(item);
 
     const selectItem = (e) => {
         const items = e.target.value;
@@ -14,8 +13,6 @@ const SearchBox = (props) => {
     };
 
     const searchItem = () => {
-        console.log(item);
-
         if (item === "") {
             window.alert("검색할 식재료를 입력해주세요!");
             return;
@@ -25,7 +22,6 @@ const SearchBox = (props) => {
     };
 
     React.useEffect(() => {
-        console.log("성공");
     }, []);
 
     return (
