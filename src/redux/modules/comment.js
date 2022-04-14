@@ -22,9 +22,10 @@ const initialSingleDataForm = {
   postId: "test",
   commentId: "test",
   nickname: "test0",
-  profile: "test",
+  // profile: "test",
   comment: "test",
-  createdAt: moment().format("YYYY-MM-DD hh:mm:ss"),
+  createdAt: moment().format("YYYY-MM-DD HH:mm:ss"),
+  email: "test@test.com",
 };
 // Actions Creators
 const sendComment = createAction(SEND_COMMENT, (comment) => ({ comment }));
@@ -41,9 +42,9 @@ const deletComment = createAction(DELETE_COMMENT, (commentId) => ({
 // Middlewares
 
 // send a newly written comment
-const sendCommentDB = (comment = "", postId) => {
+const sendCommentDB = (comment = "", postId = "", login_nickname = "") => {
   return function (dispatch, getState, { history }) {
-    let createdAt = moment().format("YYYY-MM-DD hh:mm:ss");
+    let createdAt = moment().format("YYYY-MM-DD HH:mm:ss");
     console.log(comment, postId);
     // 만들어둔 instance에 보낼 요청 타입과 주소로 요청합니다.
     instance
@@ -53,7 +54,7 @@ const sendCommentDB = (comment = "", postId) => {
       })
       .then((res) => {
         //요청이 정상적으로 끝나고 응답을 받아왔다면 수행할 작업!
-        console.log("통신 성공!!");
+        window.alert("댓글 전송 완료!!");
         console.log(res);
 
         let new_comment = {
@@ -62,6 +63,7 @@ const sendCommentDB = (comment = "", postId) => {
           commentId: res.data.comments[0]._id,
           comment: comment,
           createdAt: createdAt,
+          nickname: login_nickname,
         };
 
         dispatch(sendComment(new_comment));
@@ -97,17 +99,7 @@ const getCommentsDB = (postId) => {
       .get(`/api/comments/${postId}`)
       .then((res) => {
         //요청이 정상적으로 끝나고 응답을 받아왔다면 수행할 작업!
-
-        // 한번이상 수정된 댓글 필터링
-        let _comment_list = res.data.comments;
-        _comment_list.map((comment) => {
-          if (comment.createdAt.indexOf("(수정됨)") !== -1) {
-            return (comment["createdAt"] =
-              comment.createdAt.split("(수정됨)")[0]);
-          }
-        });
-
-        console.log(_comment_list);
+        console.log(res.data.comments);
 
         // return;
         // 댓글 역순으로 정렬
@@ -125,6 +117,7 @@ const getCommentsDB = (postId) => {
             commentId: comment._id,
             nickname: comment.nickname,
             profile: comment.profile,
+            email: comment.email,
             comment: comment.comment,
             createdAt: comment.createdAt,
           })
@@ -168,7 +161,7 @@ const editCommentDB = (commentId = "", comment = "") => {
       editedComment = {
         ...editingComment,
         comment: comment,
-        createdAt: editingComment.createdAt + "(수정됨)",
+        createdAt: "(수정됨)" + editingComment.createdAt,
       };
     } else {
       editedComment = {
@@ -178,12 +171,14 @@ const editCommentDB = (commentId = "", comment = "") => {
       };
     }
 
+    console.log(editedComment.createdAt);
     // return;
 
     // 만들어둔 instance에 보낼 요청 타입과 주소로 요청합니다.
     instance
       .put(`/api/comments/${commentId}`, {
         comment: comment,
+        createdAt: editedComment.createdAt,
       })
       .then((res) => {
         //요청이 정상적으로 끝나고 응답을 받아왔다면 수행할 작업!
@@ -255,7 +250,7 @@ export default handleActions(
   {
     [SEND_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        draft.list = [...draft.list, { ...action.payload.comment }];
+        draft.list = [{ ...action.payload.comment }, ...draft.list];
         console.log(draft.list);
       }),
     [GET_COMMENTS]: (state, action) =>

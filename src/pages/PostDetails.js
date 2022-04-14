@@ -26,6 +26,11 @@ const PostDetails = (props) => {
     dispatch(postActions.deletePostFB(this_post.postId));
   };
 
+  const goBacktoMain = () => {
+    window.alert("게시글이 존재하지 않습니다.");
+    props.history.replace("/");
+  };
+
   return (
     <React.Fragment>
       <BodyContainer>
@@ -33,7 +38,7 @@ const PostDetails = (props) => {
           {user_info.is_login && (
             <Grid>
               <button
-                onClick={() => history.push(`/write/${this_post.postId}`)}
+                onClick={() => history.push(`/write/${this_post?.postId}`)}
               >
                 수정하기
               </button>
@@ -41,7 +46,7 @@ const PostDetails = (props) => {
             </Grid>
           )}
           <Text size="60px" bold>
-            {this_post.title}
+            {this_post?.title}
           </Text>
         </Grid>
         <Grid is_flex>
@@ -49,24 +54,28 @@ const PostDetails = (props) => {
             <Image margin="0px 10px 0px 0px" shape="circle" />
             <span>닉네임</span>
           </Grid>
-          <span>{this_post.createdAt}</span>
+          <span>{this_post?.createdAt}</span>
         </Grid>
-        <Image paddingTop="40%" shape="rectangle" src={this_post.image} />
+        <Image
+          paddingTop="40%"
+          shape="rectangle"
+          src={!this_post?.image ? goBacktoMain : this_post.image}
+        />
         <Grid padding="60px">
           <Input
             multiLine
             label="식재료 목록"
             placeholder="식재료를 입력해주세요!!"
-            value={this_post.item}
+            value={this_post?.item}
           ></Input>
           <Input
             multiLine
             label="코멘트"
             placeholder="코멘트를 입력해주세요!!"
-            value={this_post.content}
+            value={this_post?.content}
           ></Input>
         </Grid>
-        <CommentList postId={this_post.postId} />
+        <CommentList postId={this_post?.postId} />
       </BodyContainer>
 
       {/* <Post {...this_post} is_me /> */}
