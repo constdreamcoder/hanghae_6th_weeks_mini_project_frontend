@@ -65,14 +65,6 @@ const Head = (props) => {
                     ) : (
                         <React.Fragment>
                             <Button
-                                margin="0px 20px 0px 0px"
-                                _onClick={() => {
-                                    history.push("/mypage");
-                                }}
-                            >
-                                my
-                            </Button>
-                            <Button
                                 bg="rgb(38, 194, 129)"
                                 margin="0px 20px 0px 0px"
                                 _onClick={() => {

@@ -9,6 +9,7 @@ const Button = (props) => {
         text,
         _onClick,
         is_float,
+        is_custom,
         children,
         margin,
         width,
@@ -23,6 +24,16 @@ const Button = (props) => {
                 <FloatButton onClick={_onClick}>
                     {text ? text : children}
                 </FloatButton>
+            </React.Fragment>
+        );
+    }
+
+    if (is_custom) {
+        return (
+            <React.Fragment>
+                <CustomButton onClick={_onClick}>
+                    {text ? text : children}
+                </CustomButton>
             </React.Fragment>
         );
     }
@@ -48,6 +59,7 @@ Button.defaultProps = {
     children: null,
     _onClick: () => {},
     is_float: false,
+    is_custom: false,
     margin: false,
     width: "100%",
     bg: "#212121", // new
@@ -98,5 +110,19 @@ const FloatButton = styled.button`
     &:hover {
         animation: ${rotate} 2s linear infinite;
     }
+`;
+
+const CustomButton = styled.button`
+    position: fixed;
+    bottom: 100px;
+    right: 60px;
+    border: none;
+    color: white;
+    background-color: black;
+    width: 50px;
+    border-radius: 50%;
+    height: 50px;
+    cursor: pointer;
+    z-index: 3;
 `;
 export default Button;

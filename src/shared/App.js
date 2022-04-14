@@ -18,7 +18,6 @@ import Signup from "../pages/Signup";
 import { Switch } from "react-router-dom/cjs/react-router-dom.min";
 import PostWrite from "../pages/PostWrite";
 import PostEdit from "../pages/PostEdit";
-import MyPage from "../pages/Mypage";
 // 수정삭제페이지테스트
 
 function App() {
@@ -39,7 +38,6 @@ function App() {
                 <Route path="/signup" exact component={Signup} />
                 <Route path="/write" exact component={PostWrite} />
                 <Route path="/write/:postId" exact component={PostEdit} />
-                <Route path="/mypage" exact component={MyPage} />
             </ConnectedRouter>
         </div>
     );

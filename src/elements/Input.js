@@ -14,6 +14,7 @@ const Input = (props) => {
         margin,
         value,
         border,
+        width, //추가했습니다.
     } = props;
 
     if (multiLine) {
@@ -47,6 +48,7 @@ const Input = (props) => {
                     margin={margin}
                     defaultValue={value}
                     border={border}
+                    width={width} //추가했습니다.
                 />
             </Grid>
         </React.Fragment>
@@ -63,6 +65,7 @@ Input.defaultProps = {
     value: "",
     margin: "", // new
     border: "1px solid #212121",
+    width: "100%", //추가했습니다.
 };
 
 const ElTextarea = styled.textarea`
@@ -79,6 +82,7 @@ const ElInput = styled.input`
     padding: 12px 4px;
     box-sizing: border-box;
     margin: ${(props) => props.margin};
+    width: ${(props) => props.width};
 `;
 
 export default Input;

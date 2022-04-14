@@ -98,6 +98,7 @@ const loginCheckFB = () => {
             )
             .then(function (response) {
                 console.log("--islogin api call Success");
+                console.log(response);
                 // 응답이 잘 들어왔으면 store에 있는 user라는 state를 dispatch 해주기
                 dispatch(
                     setUser({

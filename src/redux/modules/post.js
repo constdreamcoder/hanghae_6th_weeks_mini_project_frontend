@@ -45,7 +45,7 @@ const getPostFB = () => {
     return function (dispatch, getState, { history }) {
         Apis.roadPostList()
             .then(function (response) {
-                console.log("=====포스트리스트", response.data);
+                // console.log("=====포스트리스트", response.data);
 
                 let post_list = response.data.postList.map((post) => {
                     let keys = Object.keys(initialPost);
@@ -70,38 +70,26 @@ const getPostFB = () => {
 };
 const editPostFB = (postId, editContents) => {
     return function (dispatch, getState, { history }) {
-        console.log(postId, editContents);
+        console.log("수정시작2", postId, editContents);
+
         Apis.editPost(postId, editContents)
             .then(function (response) {
+                console.log("수정시작3", response);
                 const editPostContents = {
                     ...editContents,
                     postId: postId,
                 };
                 dispatch(editPost(editPostContents));
-                window.alert("수정완료!");
-                history.goBack(); //(`/detail/${postId}`);
+                // window.alert("수정완료!");
+                // history.goBack(); //(`/detail/${postId}`);
             })
             .catch(function (error) {
+                console.log("수정시작4");
                 console.log("editPostFB에러", error);
             });
     };
 };
-// export const editPostFB =
-//     (postId, editContents) =>
-//     async (dispatch, getState, { history }) => {
-//         try {
-//             await Apis.editPost(postId, editContents);
-//             const editPostContents = {
-//                 ...editContents,
-//                 postId: postId,
-//             };
-//             dispatch(editPost(editPostContents));
-//             window.alert("수정완료!");
-//             history.goBack(); //(`/detail/${postId}`);
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     };
+
 const deletePostFB = (postId) => {
     return function (dispatch, getState, { history }) {
         Apis.deletePost(postId)
@@ -115,18 +103,27 @@ const deletePostFB = (postId) => {
             });
     };
 };
+
 const setMypostFB = () => {
     return function (dispatch, getState, { history }) {
         Apis.roadMypost()
             .then(function (response) {
-                console.log("=====마이포스트리스트", response.data);
-                // dispatch(setPost(response.data));
+                console.log("=====마이포스트리스트", response.data.mylist);
+                dispatch(setPost(response.data.mylist));
             })
             .catch(function (error) {
                 console.log("setMypostFB에러", error.response);
             });
     };
 };
+// 검색기능
+// const searchPostFB = (item) => {
+//     return function (dispatch, getState, { history }) {
+//         console.log(item);
+//         // Apis.searchPost()
+//     };
+// };
+
 // reducer
 export default handleActions(
     {
@@ -162,5 +159,6 @@ const actionCreators = {
     editPostFB,
     deletePostFB,
     setMypostFB,
+    // searchPostFB,
 };
 export { actionCreators };

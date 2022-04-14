@@ -5,6 +5,7 @@ import { Grid, Input, Button, Image } from "../elements/index";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as imageActions } from "../redux/modules/image";
+
 const PostWrite = (props) => {
     const dispatch = useDispatch();
     //=================================================preview관련
@@ -28,6 +29,7 @@ const PostWrite = (props) => {
     // input에 텍스트 입력 시 contents 로 저장하는 함수
     const changeContents = (e) => {
         const { name, value } = e.target;
+        console.log(e.target);
         setContents({ ...contents, [name]: value });
     };
     //===============================================addPost관련
@@ -83,8 +85,8 @@ const PostWrite = (props) => {
     };
     return (
         <React.Fragment>
-            <Grid width="70vw" margin="100px auto 0 auto" is_flex>
-                <Grid center bg="green">
+            <Grid width="70vw" margin="150px auto" is_flex>
+                <Grid center margin="20px">
                     <Image
                         previewSize="100"
                         shape="rectangle"
@@ -96,8 +98,7 @@ const PostWrite = (props) => {
                     />
                     <input type="file" ref={fileInput} onChange={previewFile} />
                 </Grid>
-
-                <Grid bg="blue" heght="100px">
+                <Grid heght="100px" margin="20px">
                     <Grid width="90%" margin="auto">
                         <Grid>
                             <Input
