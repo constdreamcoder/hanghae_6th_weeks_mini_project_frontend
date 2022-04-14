@@ -45,6 +45,7 @@ const PostEdit = (props) => {
     };
     //===============================================editPost관련
     const editPost = () => {
+        console.log(contents.title);
         if (
             contents.title === "" ||
             contents.content === "" ||
