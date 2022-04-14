@@ -13,9 +13,9 @@
 ## 📆 제작 기간 및 팀원 소개
 
 - 2022.04.08 ~ 2022.04.14
-- 강서지 : 로그인, 회원가입 담당
-- 소민경 : 게시글 작성 담당
-- 장수찬 : 메인, 상세 페이지, 댓글 담당
+- 강성지 : 게시글 작성, 마이페이지 담당
+- 소민경 : 로그인, 회원가입 담당
+- 장수찬 : 메인, 상세 페이지 댓글 담당
 
 </br>
 
@@ -73,6 +73,7 @@
 | 게시글 작성     | POST   | /api/posts                | { title:”도와주세요!”, content: "제 냉장고입니다", item: “당근”, image:"/images/cancle.png", createdAt:”YYYY-MM-DD hh:mm:ss”} |                                                                                                                                                                                                                                                                                                                                                                                                              | success: 201</br> error: 400 |
 | 게시글 수정     | PUT    | /api/posts/{postId}       | { title:”도와주세요!”, content: "제 냉장고입니다", item: “당근”, image:"/images/cancle.png" }                                 |                                                                                                                                                                                                                                                                                                                                                                                                              | success: 200</br> error: 400 |
 | 게시글 삭제     | DELETE | /api/posts/{postId}       |                                                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                                              | success: 200</br> error: 400 |
+| 내 게시글 조회     | GET | /api/mypage      |                                                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                                              | success: 200</br> error: 400 |
 | 게시글 상세조회 | GET    | /api/posts/{postId}       |                                                                                                                               | { postId: 1, title:” 도와주세요!”, content: "제 냉장고입니다", item: “당근”, image:"/images/cancle.png", createdAt:”YYYY-MM-DD hh:mm:ss”, nickname: “javaking”, comments: [{ commentId: 1,nickname: “꿀렁해”, profile: 파일, comment: "나도 반가워요", createdAt:”YYYY-MM-DD hh:mm:ss” }, { commentId: 2, nickname: “꿀렁해”, profile: 파일, comment: "나도 반가워요", createdAt:”YYYY-MM-DD hh:mm:ss” } ] } | success: 200</br> error: 400 |
 | 댓글 작성       | POST   | /api/comments/{postId}    | { comment: "나도 반가워요",createdAt:”YYYY-MM-DD hh:mm:ss” }                                                                  |                                                                                                                                                                                                                                                                                                                                                                                                              | success: 201</br> error: 400 |
 | 댓글 삭제       | DELETE | /api/comments/{commentId} |                                                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                                              | success: 200</br> error: 400 |
@@ -104,6 +105,10 @@
 - 댓글 추가, 수정, 삭제 가능
 - 실시간 댓글 확인 가능
 - 댓글을 달면 제일 상위에 배치
+
+✔ 게시글 수정 페이지
+
+- 게시글 내용 또는 사진을 수정
 
 </br>
 
