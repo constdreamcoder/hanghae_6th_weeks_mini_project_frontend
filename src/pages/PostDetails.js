@@ -63,7 +63,7 @@ const PostDetails = (props) => {
                                 width="64px"
                                 margin="0 8px 0"
                                 display="inline"
-                                onClick={() =>
+                                _onClick={() =>
                                     history.push(`/write/${this_post.postId}`)
                                 }
                             >
@@ -72,7 +72,7 @@ const PostDetails = (props) => {
                             <Button
                                 width="64px"
                                 display="inline"
-                                onClick={deletePost}
+                                _onClick={deletePost}
                             >
                                 삭제하기
                             </Button>

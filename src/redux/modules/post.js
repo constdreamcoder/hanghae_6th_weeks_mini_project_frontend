@@ -84,8 +84,8 @@ const editPostFB = (postId, editContents) => {
                     postId: postId,
                 };
                 dispatch(editPost(editPostContents));
-                // window.alert("수정완료!");
-                // history.goBack(); //(`/detail/${postId}`);
+                window.alert("수정완료!");
+                history.goBack(); //(`/detail/${postId}`);
             })
             .catch(function (error) {
                 console.log("수정시작4");
@@ -96,6 +96,7 @@ const editPostFB = (postId, editContents) => {
 
 const deletePostFB = (postId) => {
     return function (dispatch, getState, { history }) {
+        console.log(postId);
         Apis.deletePost(postId)
             .then(function (response) {
                 console.log(response.data);

@@ -84,53 +84,59 @@ const PostWrite = (props) => {
     return (
         <React.Fragment>
             <Form width="fit-content">
-                <Grid width="50vw" margin="20px auto">
-                    <Grid center>
-                        <Image
-                            previewSize="100"
-                            shape="rectangle"
-                            src={
-                                preview
-                                    ? preview
-                                    : "https://firebasestorage.googleapis.com/v0/b/react-homework1.appspot.com/o/images%2Frefrigerator_text.PNG?alt=media&token=2dd0c2a6-ee24-4929-8692-46160a2cbb84"
-                            }
-                        />
-                    </Grid>
-                    {/* Input 프롭스에 name, value 추가했습니다. */}
-                    <Grid>
-                        <Grid center>
+                <Grid width="50vw" margin="20px auto" is_flex>
+                    <Grid center margin="10px">
+                        <Grid>
+                            <Image
+                                previewSize="100"
+                                shape="rectangle"
+                                src={
+                                    preview
+                                        ? preview
+                                        : "https://firebasestorage.googleapis.com/v0/b/react-homework1.appspot.com/o/images%2Frefrigerator_text.PNG?alt=media&token=2dd0c2a6-ee24-4929-8692-46160a2cbb84"
+                                }
+                            />
+                        </Grid>
+                        <Grid>
                             <input
                                 type="file"
                                 ref={fileInput}
                                 onChange={previewFile}
                             />
                         </Grid>
-                        <Input
-                            placeholder={"제목"}
-                            name="title"
-                            value={contents.title}
-                            _onChange={changeContents}
-                        ></Input>
                     </Grid>
-                    <Grid>
-                        <Input
-                            placeholder={"냉장고에 어떤 식재료가 있나요?"}
-                            name="item"
-                            value={contents.item}
-                            _onChange={changeContents}
-                        ></Input>
-                    </Grid>
-                    <Grid>
-                        <Input
-                            placeholder={"어떤 도움을 요청하시겠어요?"}
-                            name="content"
-                            value={contents.content}
-                            _onChange={changeContents}
-                            multiLine
-                        ></Input>
-                    </Grid>
-                    <Grid>
-                        <Button _onClick={addPost} text="게시글 작성"></Button>
+                    <Grid center margin="10px">
+                        <Grid>
+                            <Input
+                                placeholder={"제목"}
+                                name="title"
+                                value={contents.title}
+                                _onChange={changeContents}
+                            ></Input>
+                        </Grid>
+                        <Grid>
+                            <Input
+                                placeholder={"냉장고에 어떤 식재료가 있나요?"}
+                                name="item"
+                                value={contents.item}
+                                _onChange={changeContents}
+                            ></Input>
+                        </Grid>
+                        <Grid>
+                            <Input
+                                placeholder={"어떤 도움을 요청하시겠어요?"}
+                                name="content"
+                                value={contents.content}
+                                _onChange={changeContents}
+                                multiLine
+                            ></Input>
+                        </Grid>
+                        <Grid>
+                            <Button
+                                _onClick={addPost}
+                                text="게시글 작성"
+                            ></Button>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Form>
