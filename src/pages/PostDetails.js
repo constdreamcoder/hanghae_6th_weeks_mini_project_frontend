@@ -22,7 +22,7 @@ const PostDetails = (props) => {
     const userInfo = useSelector((state) => state.user.user);
     const is_login = useSelector((state) => state.user.is_login);
 
-    console.log(userInfo);
+    console.log(this_post);
 
     const deletePost = () => {
         dispatch(postActions.deletePostFB(this_post.postId));
@@ -57,7 +57,7 @@ const PostDetails = (props) => {
                     <Text display="block">{this_post.content}</Text>
                 </Grid>
                 {is_login ? (
-                    this_post.nickname === userInfo.nickname ? (
+                    this_post.email === userInfo.email ? (
                         <Grid center="center">
                             <Button
                                 width="64px"
