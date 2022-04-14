@@ -73,12 +73,7 @@ const CommentList = (props) => {
           <Text>댓글 {comments_count}개</Text>
         </Grid>
         <Grid is_flex>
-          <Button
-            width="20%"
-            margin="0px 20px 0px 0px"
-            text="요리를 추천해주세요!!"
-            _onClick={sendComment}
-          ></Button>
+          
           <Input
             type="text"
             _onChange={(e) => {
@@ -86,6 +81,12 @@ const CommentList = (props) => {
             }}
             value={comment}
           />
+          <Button
+            width="20%"
+            margin="0px 0px 0px 20px"
+            text="덧글 입력"
+            _onClick={sendComment}
+          ></Button>
         </Grid>
         <Grid padding="16px" overflow="visible">
           {comment_list.map((comment, idx) => (
