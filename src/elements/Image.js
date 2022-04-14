@@ -13,6 +13,7 @@ const Image = (props) => {
     previewSize,
     border,
     _onClick,
+    backgroundSize,
   } = props;
 
   const styles = {
@@ -23,6 +24,7 @@ const Image = (props) => {
     paddingTop: paddingTop, // new
     previewSize: previewSize,
     border: border,
+    backgroundSize: backgroundSize,
   };
 
   if (shape === "circle") {
@@ -49,9 +51,10 @@ Image.defaultProps = {
   size: 36,
   display: "", // new
   margin: "4px", // new
-  paddingTop: "75%", // new
+  paddingTop: "100%", // new
   previewSize: false,
   _onClick: () => {},
+  backgroundSize: "contain",
 };
 
 const AspectOutter = styled.div`
@@ -69,7 +72,7 @@ const AspectInner = styled.div`
   background-position: center; // new
   // border-radius: 20px 20px 0px 0px; // new
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: ${(props) => props.backgroundSize};
 `;
 
 const ImageCircle = styled.div`

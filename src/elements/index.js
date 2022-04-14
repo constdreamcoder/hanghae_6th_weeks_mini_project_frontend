@@ -6,6 +6,7 @@ import Button from "./Button";
 import Modal from "./Modal";
 import FileInput from "./FileInput";
 import ProfileBtn from "./ProfileBtn";
+import Form from "./Form";
 
 
-export { Grid, Image, Text, Input, Button, Modal, FileInput, ProfileBtn };
+export { Grid, Image, Text, Input, Button, Modal, FileInput, ProfileBtn, Form };

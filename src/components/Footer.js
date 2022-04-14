@@ -43,7 +43,6 @@ const Main = (props) => {
 
 const FooterContainer = styled.footer`
   width: 100vw;
-  background-color: #e5e3c9;
   padding: 16px;
   display: flex;
   justify-content: center;
@@ -67,9 +66,9 @@ const FooterTitle = styled.div`
   justify-content: center;
   align-items: center;
   padding: 16px;
-  font-size: 1.5rem;
+  font-size: 12pt;
   font-weight: 700;
-  color: #789395;
+  color: rgba(0,0,0,0.5);
 `;
 
 const FooterBody = styled.div`
@@ -78,7 +77,7 @@ const FooterBody = styled.div`
   justify-content: center;
   align-items: center;
   padding: 16px 0px;
-  border-top: 1px solid rgb(126, 125, 125);
+  border-top: 1px solid rgb(0,0,0,0.2);
 `;
 
 const FooterBodyLeft = styled.div`
@@ -86,6 +85,7 @@ const FooterBodyLeft = styled.div`
   justify-content: center;
   align-items: start;
   margin-right: 50px;
+  color: rgba(0,0,0,0.5);
 `;
 
 const FooterBodyRight = styled.div`
@@ -93,39 +93,40 @@ const FooterBodyRight = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: start;
+  color: rgba(0,0,0,0.5);
 `;
 
 const FooterBodyLeftFrontend = styled.div`
   font-size: 14px;
   font-weight: 700;
-  color: black;
+  color: rgba(0,0,0,0.5);
   margin-right: 13px;
 `;
 
 const FooterBodyLeftGithubAddress = styled.div`
   font-size: 14px;
   font-weight: 400;
-  color: black;
+  color: rgba(0,0,0,0.5);
 `;
 
 const FooterBodyRightBackend = styled.div`
   font-size: 14px;
   font-weight: 700;
-  color: black;
+  color: rgba(0,0,0,0.5);
   margin-right: 13px;
 `;
 
 const FooterBodyRightGithubAddress = styled.div`
   font-size: 14px;
   font-weight: 400;
-  color: black;
+  color: rgba(0,0,0,0.5);
 `;
 
 const FooterLink = styled.a`
   text-decoration: none;
   font-size: 14px;
   font-weight: 400;
-  color: black;
+  color: rgba(0,0,0,0.5);
   &:hover {
     text-decoration: underline;
   }

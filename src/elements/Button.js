@@ -12,6 +12,7 @@ const Button = (props) => {
         children,
         margin,
         width,
+        color,
         bg,
         padding,
         name,
@@ -32,6 +33,7 @@ const Button = (props) => {
         width: width,
         bg: bg, // new
         padding: padding, // new
+        color: color,
     };
 
     return (
@@ -52,12 +54,13 @@ Button.defaultProps = {
     width: "100%",
     bg: "#212121", // new
     padding: "12px 0px", // new
+    color: "white"
 };
 
 const ElButton = styled.button`
     width: ${(props) => props.width};
     background-color: ${(props) => props.bg}; // new
-    color: #ffffff;
+    color: ${(props) => props.color};
     padding: ${(props) => props.padding};
     box-sizing: border-box;
     border: none;
@@ -65,6 +68,10 @@ const ElButton = styled.button`
     ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
     cursor: pointer; // new
     border-radius: 8px;
+    &:hover {
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), ${(props) => props.bg};
+        cursor: pointer
+    }
 `;
 
 const rotate = keyframes`
@@ -97,6 +104,7 @@ const FloatButton = styled.button`
     transition: transform 300ms ease-in-out;
     &:hover {
         animation: ${rotate} 2s linear infinite;
+        cursor: pointer
     }
 `;
 export default Button;
