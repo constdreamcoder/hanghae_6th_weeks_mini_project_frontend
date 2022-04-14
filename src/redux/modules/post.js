@@ -20,6 +20,7 @@ const initialPost = {
     image: "",
     createdAt: "",
     nickname: "",
+    email: "",
 };
 // middlewares
 const addPostFB = (contents = "") => {
